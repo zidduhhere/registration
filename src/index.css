@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@theme {
+  --color-notion-bg: #191919;
+  --color-notion-card: #202020;
+  --color-notion-border: #373737;
+  --color-notion-primary: #ffffff;
+  --color-notion-text: #d4d4d4;
+  --color-notion-muted: #9b9b9b;
+  --color-notion-accent: #2383e2;
+  --color-notion-text-light: #787774;
+
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Georgia", serif;
+  
+  --shadow-notion: rgba(15, 15, 15, 0.1) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 2px 4px;
+}
+
+@layer base {
+  body {
+    @apply bg-notion-bg text-notion-text antialiased font-sans;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+}
