@@ -40,7 +40,14 @@ export const Button: React.FC<ButtonProps> = ({
         fullWidth && "w-full",
         className
       )}
-      whileTap={{ scale: 0.98 }}
+      whileTap={{ scale: 0.7 }}
+      animate={{
+        scale: 1,
+      }}
+      whileHover={{
+        scale: 0.95,
+        marginTop: "-2px",
+      }}
       {...props}
     >
       {children}

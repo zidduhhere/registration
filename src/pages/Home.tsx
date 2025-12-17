@@ -1,20 +1,29 @@
 import React from "react";
-import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "../components/ui/Button";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 const Home: React.FC = () => {
+  useGSAP(() => {
+    gsap.from(".header-main", {
+      y: -100,
+      opacity: 0,
+      duration: 1,
+      yoyo: true,
+
+      ease: "elastic",
+    });
+  }, []);
   return (
     <div className="flex flex-col items-center text-center pt-10">
-      <motion.div
-        className="max-w-[700px] mb-20"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
+      <div className="max-w-[700px] mb-20">
         <div className="text-6xl mb-6">🚀</div>
-        <h1 className="text-5xl font-sans text-notion-primary mb-6 tracking-tight">
+        <h1
+          id="header-main"
+          className=" font-sans text-notion-primary mb-6 tracking-tight text-5xl header-main"
+        >
           Pravega Tech Fest 2025
         </h1>
         <p className="text-xl text-notion-muted leading-relaxed mb-10">
@@ -37,14 +46,9 @@ const Home: React.FC = () => {
             </Button>
           </Link>
         </div>
-      </motion.div>
+      </div>
 
-      <motion.div
-        className="grid grid-cols-1 md:grid-cols-3 gap-10 w-full border-t border-notion-border pt-10"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.3, duration: 0.6 }}
-      >
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 w-full border-t border-notion-border pt-10">
         <div className="text-left md:text-center">
           <h3 className="text-sm uppercase tracking-wider text-notion-text-light mb-2">
             Date & Time
@@ -65,7 +69,7 @@ const Home: React.FC = () => {
           </h3>
           <p className="text-lg font-medium text-notion-text">5000+ Students</p>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 };

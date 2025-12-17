@@ -14,13 +14,13 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <div className="flex flex-col min-h-screen bg-notion-bg text-notion-text">
-      <nav className="sticky top-0 z-50 bg-notion-bg/80 backdrop-blur-md border-b border-notion-border h-[60px] flex justify-center">
+      <nav className="sticky top-0 z-50 bg-notion-bg/80 backdrop-blur-md border-b border-notion-border h-[100px] flex justify-center">
         <div className="w-full max-w-[900px] px-5 flex items-center justify-between">
           <Link
             to="/"
             className="flex items-center gap-2 font-bold text-lg text-notion-primary no-underline"
           >
-            <span className="flex items-center justify-center w-6 h-6 bg-notion-text text-notion-bg rounded text-sm font-serif">
+            <span className="flex items-center justify-center w-6 h-6 bg-notion-text text-notion-bg rounded text-sm font-sans">
               P
             </span>
             Pravega

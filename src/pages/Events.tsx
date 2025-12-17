@@ -1,52 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Card } from "../components/ui/Card";
+import { eventsData } from "../data/events"; // Imported eventsData
+import { useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/Button";
 
-const eventsData = [
-  {
-    id: 1,
-    title: "Coding Marathon",
-    category: "Computer Science",
-    description: "24-hour hackathon to solve real-world problems.",
-    emoji: "💻",
-    date: "Jan 24",
-  },
-  {
-    id: 2,
-    title: "RoboWars",
-    category: "Robotics",
-    description: "Build your bot and battle it out in the arena.",
-    emoji: "🤖",
-    date: "Jan 25",
-  },
-  {
-    id: 3,
-    title: "Science Quiz",
-    category: "General Science",
-    description: "Test your knowledge across physics, chem, and math.",
-    emoji: "🧬",
-    date: "Jan 25",
-  },
-  {
-    id: 4,
-    title: "Paper Presentation",
-    category: "Research",
-    description: "Present your research papers to a panel of experts.",
-    emoji: "📄",
-    date: "Jan 26",
-  },
-  {
-    id: 5,
-    title: "Treasure Hunt",
-    category: "Fun",
-    description: "Explore the campus and solve clues to win.",
-    emoji: "🗺️",
-    date: "Jan 26",
-  },
-];
-
 const Events: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <div className="w-full">
       <div className="mb-10">
@@ -65,7 +25,11 @@ const Events: React.FC = () => {
             transition={{ delay: index * 0.1 }}
             className="h-full"
           >
-            <Card hoverable className="h-full flex flex-col">
+            <Card
+              hoverable
+              className="h-full flex flex-col"
+              onClick={() => navigate(`/events/${event.id}`)}
+            >
               <div className="text-3xl mb-4">{event.emoji}</div>
               <div className="flex-1 flex flex-col">
                 <span className="text-xs uppercase tracking-wider text-notion-text-light font-semibold mb-1">
@@ -74,16 +38,25 @@ const Events: React.FC = () => {
                 <h3 className="text-xl font-medium text-notion-text mb-2">
                   {event.title}
                 </h3>
-                <p className="text-sm text-notion-muted leading-relaxed mb-6 flex-1">
+                <p className="text-sm text-notion-muted leading-relaxed mb-6 flex-1 line-clamp-3">
                   {event.description}
                 </p>
                 <div className="flex justify-between items-center pt-4 border-t border-notion-border mt-auto">
-                  <span className="text-sm text-notion-muted bg-notion-card px-2 py-1 rounded">
-                    {event.date}
-                  </span>
-                  <Button size="sm" variant="secondary">
-                    Details
-                  </Button>
+                  <div className="flex gap-2">
+                    <span className="text-sm text-notion-muted bg-notion-card px-2 py-1 rounded">
+                      {event.date}
+                    </span>
+                    <span className="text-sm text-notion-muted bg-notion-card px-2 py-1 rounded">
+                      ₹{event.fee}
+                    </span>
+                    <Button
+                      size="sm"
+                      variant="secondary"
+                      className="text-[12px]"
+                    >
+                      Details
+                    </Button>
+                  </div>
                 </div>
               </div>
             </Card>
