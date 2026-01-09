@@ -61,13 +61,19 @@ const Home: React.FC = () => {
           <h3 className="text-sm uppercase tracking-wider text-notion-text-light mb-2">
             Location
           </h3>
-          <p className="text-lg font-medium text-notion-text">IISc Bangalore</p>
+                  <p className="max-w-[900px] text-lg md:text-xl text-notion-text-light mb-4 z-10">discover your interests, actions, and get to the hype — let's begin</p>
+
+                  <div className="flex gap-4 mt-3 items-center z-10">
+                    <div className="floating-pill text-white">College: ACE College Of Engineering</div>
+                    <div className="floating-pill text-white">Date: Feb 2-4, 2025</div>
+                  </div>
+          
         </div>
         <div className="text-left md:text-center">
           <h3 className="text-sm uppercase tracking-wider text-notion-text-light mb-2">
             Participants
           </h3>
-          <p className="text-lg font-medium text-notion-text">5000+ Students</p>
+          
         </div>
       </div>
     </div>
