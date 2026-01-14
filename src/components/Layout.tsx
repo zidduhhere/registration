@@ -1,79 +1,112 @@
 import React, { type ReactNode } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Home, Calendar, NotebookPen } from "lucide-react";
-import { cn } from "../lib/utils";
+import TextType from "./TextType";
+import ShinyText from "./ShinyText";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import TextPressure from "./TextPressure";
+import About from "../pages/About";
+import Events from "../pages/Events";
 
 interface LayoutProps {
   children: ReactNode;
 }
 
-export const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const location = useLocation();
-
-  const isActive = (path: string) => location.pathname === path;
+export const Layout: React.FC<LayoutProps> = ({}) => {
+  useGSAP(() => {
+    gsap
+      .timeline()
+      .from(".main-text", {
+        opacity: 0,
+        y: -40,
+        ease: "power3.out",
+        duration: 1.2,
+        delay: 0.8,
+      })
+      .from(".hint-text", {
+        opacity: 0,
+        y: 40,
+        ease: "power3.out",
+        duration: 1.2,
+      })
+      .to(".hero-container", {
+        opacity: 0,
+        y: -400,
+        pointerEvents: "none",
+        ease: "elastic.in",
+        duration: 1.2,
+      })
+      .to(".hero-container", {
+        display: "none",
+      })
+      .fromTo(
+        ".children , .events",
+        {
+          opacity: 0,
+          y: 40,
+          ease: "power3.out",
+        },
+        {
+          opacity: 1,
+          y: 0,
+          pointerEvents: "all",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          textAlign: "center",
+          ease: "power3.out",
+          duration: 1.2,
+        }
+      );
+  });
 
   return (
-    <div className="flex flex-col min-h-screen bg-notion-bg text-notion-text">
-      <nav className="sticky top-0 z-50 bg-notion-bg/80 backdrop-blur-md border-b border-notion-border h-[100px] flex justify-center">
-        <div className="w-full max-w-[900px] px-5 flex items-center justify-between">
-          <Link
-            to="/"
-            className="flex items-center gap-2 font-bold text-lg text-notion-primary no-underline"
-          >
-            <span className="flex items-center justify-center w-6 h-6 bg-notion-text text-notion-bg rounded text-sm font-sans">
-              P
-            </span>
-            Pravega
-          </Link>
+    <body className="min-h-screen w-full bg-white  ">
+      {/* {Hero Container} */}
+      <div className="flex flex-col gap-2 justify-center items-center h-screen hero-container">
+        <TextType
+          text={"PRAVEGA"}
+          cursorCharacter={"_"}
+          typingSpeed={70}
+          deletingSpeed={100}
+          showCursor={false}
+          pauseDuration={2000}
+          loop={false}
+          className="nevera text-7xl text-black "
+        />
 
-          <div className="flex items-center gap-6">
-            <Link
-              to="/"
-              className={cn(
-                "flex items-center gap-1.5 text-[0.95rem] transition-colors",
-                isActive("/")
-                  ? "text-notion-text font-medium"
-                  : "text-notion-muted hover:text-notion-text"
-              )}
-            >
-              <Home size={18} />
-              <span>Home</span>
-            </Link>
-            <Link
-              to="/events"
-              className={cn(
-                "flex items-center gap-1.5 text-[0.95rem] transition-colors",
-                isActive("/events")
-                  ? "text-notion-text font-medium"
-                  : "text-notion-muted hover:text-notion-text"
-              )}
-            >
-              <Calendar size={18} />
-              <span>Events</span>
-            </Link>
-            <Link
-              to="/register"
-              className={cn(
-                "flex items-center gap-1.5 px-3.5 py-1.5 rounded font-medium transition-all text-sm",
-                isActive("/register")
-                  ? "bg-notion-accent text-white hover:opacity-90 shadow-sm"
-                  : "text-notion-text border border-notion-border hover:bg-notion-card shadow-sm"
-              )}
-            >
-              <NotebookPen size={18} />
-              <span>Register</span>
-            </Link>
+        <ShinyText
+          text="Let's RUN !!!"
+          className="clash text-3xl hint-text"
+        />
+      </div>
+
+      <div className="hidden z-100  opacity-0 children  ">
+        
+ 
+        <TextPressure text="PRAVEGA 2026" textColor="black" strokeWidth={10} />
+
+        {/* {Navigation Elements} */}
+
+        <div className="flex flex-col items-center justify-center text-center pt-10 h-screen gap-4 ">
+          <div className="button-text bg-black  h-14 w-[60vw] px-10 md:w-[40vw] hover:bg-green-700 text-white serif text-4xl flex items-center justify-center">
+            ABOUT
+          </div>
+          <div className="button-text bg-black h-14 w-[60vw] md:w-[40vw] hover:bg-red-700 text-white serif text-4xl flex items-center justify-center">
+            EVENTS
+          </div>
+          <div className="button-text bg-black h-14 w-[60vw] md:w-[40vw] text-white serif text-4xl px-10 flex items-center justify-center">
+            REGISTRATION
+          </div>
+          <div className="button-text bg-black h-14 w-[60vw] md:w-[40vw] text-white serif text-4xl flex items-center justify-center">
+            CONTACT US
           </div>
         </div>
-      </nav>
-
-      <main className="flex-1 w-full max-w-[900px] mx-auto px-5 py-10">
-        {children}
-      </main>
-
-      <footer className="text-center p-8 text-neutral-500 text-sm border-t border-notion-border mt-auto">
-        <p>© 2025 Pravega Tech Fest</p>
-      </footer>
-    </div>
+        <About />
+        
+      </div>
+  
+        <div className="opacity-0 events"> <Events /></div>
+      
+    </body>
   );
 };

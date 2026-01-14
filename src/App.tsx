@@ -5,11 +5,17 @@ import Events from "./pages/Events";
 import Register from "./pages/Register";
 
 import EventDetails from "./pages/EventDetails";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
 
 function App() {
+
+  gsap.registerPlugin(ScrollTrigger);
   return (
     <Router>
+      
       <Layout>
+        
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/events" element={<Events />} />

@@ -1,3 +1,6 @@
+import { arrowIcon, eatingEmote, edRedIcon, starBlack, starGradient } from "../assets/icons";
+import type { MenuItemProps } from "../components/FlowingMenu";
+
 export interface Event {
   id: string;
   title: string;
@@ -184,3 +187,151 @@ export const eventsData: Event[] = [
     rules: ["Registration encouraged."]
   },
 ];
+
+
+
+ export const items : MenuItemProps[] = [{
+      link: "/events/event1",
+      text: "BUSINESS HACAKATHON",
+      image: starGradient,
+      speed: 30,
+      textColor: "#FFFFFF",
+      marqueeBgColor: "#FFffff",
+      marqueeTextColor: "#000000",
+      borderColor: "#FFFFFF",
+      isFirst: true
+    },
+    {
+      link: "/events/event1",
+      text: "RC CAR RACE",
+      image: edRedIcon,
+      speed: 30,
+      
+      textColor: "#FFFFFF",
+      marqueeBgColor: "#FFffff",
+      marqueeTextColor: "#000000",
+      borderColor: "#FFFFFF",
+      isFirst: true
+    },
+    {
+      link: "/events/event1",
+      text: "DRONE RACE",
+      image: starBlack,
+      speed: 30,
+      textColor: "#FFFFFF",
+      marqueeBgColor: "#FFffff",
+      marqueeTextColor: "#000000",
+      borderColor: "#FFFFFF",
+      isFirst: true
+    },
+    {
+      link: "/events/event1",
+      text: "BUSINESS HACAKATHON",
+      image: arrowIcon,
+      speed: 30,
+      textColor: "#FFFFFF",
+      marqueeBgColor: "#FFffff",
+      marqueeTextColor: "#000000",
+      borderColor: "#FFFFFF",
+      isFirst: true
+    },
+    {
+      link: "/events/event1",
+      text: "AI WORKSHOP & SPRINT",
+      image: eatingEmote,
+      speed: 30,
+      textColor: "#FFFFFF",
+      marqueeBgColor: "#FFffff",
+      marqueeTextColor: "#000000",
+      borderColor: "#FFFFFF",
+      isFirst: true
+    },
+    {
+      link: "/events/event1",
+      text: "CODE DEBUGGING",
+      image: starGradient,
+      speed: 30,
+      textColor: "#FFFFFF",
+      marqueeBgColor: "#FFffff",
+      marqueeTextColor: "#000000",
+      borderColor: "#FFFFFF",
+      isFirst: true
+    },
+    {
+      link: "/events/event1",
+      text: "CIRCUIT DEBUGGING",
+      image: edRedIcon,
+      speed: 30,
+      textColor: "#FFFFFF",
+      marqueeBgColor: "#FFffff",
+      marqueeTextColor: "#000000",
+      borderColor: "#FFFFFF",
+      isFirst: true
+    },
+    {
+      link: "/events/event1",
+      text: "WEBSITE DESIGNING",
+      image: starBlack,
+      speed: 30,
+      textColor: "#FFFFFF",
+      marqueeBgColor: "#FFffff",
+      marqueeTextColor: "#000000",
+      borderColor: "#FFFFFF",
+      isFirst: true
+    },
+    {
+      link: "/events/event1",
+      text: "FIGMA FOR DESIGNERS _ SOP",
+      image: arrowIcon,
+      speed: 30,
+      textColor: "#FFFFFF",
+      marqueeBgColor: "#FFffff",
+      marqueeTextColor: "#000000",
+      borderColor: "#FFFFFF",
+      isFirst: true
+    },
+    {
+      link: "/events/event1",
+      text: "IEDC TALKS",
+      image: eatingEmote,
+      speed: 30,
+      textColor: "#FFFFFF",
+      marqueeBgColor: "#FFffff",
+      marqueeTextColor: "#000000",
+      borderColor: "#FFFFFF",
+      isFirst: true
+    },
+    {
+      link: "/events/event1",
+      text: "DESIGN FOR STRUCTURE",
+      image: edRedIcon,
+      speed: 30,
+      textColor: "#FFFFFF",
+      marqueeBgColor: "#FFffff",
+      marqueeTextColor: "#000000",
+      borderColor: "#FFFFFF",
+      isFirst: true
+    },
+    {
+      link: "/events/event1",
+      text: "DESIGN FOR SKY",
+      image: starBlack,
+      speed: 30,
+      textColor: "#FFFFFF",
+      marqueeBgColor: "#FFffff",
+      marqueeTextColor: "#000000",
+      borderColor: "#FFFFFF",
+      isFirst: true
+    },
+    {
+      link: "/events/event1",
+      text: "DRONE MAKING WORKSHOP",
+      image: edRedIcon,
+      speed: 30,
+      textColor: "#FFFFFF",
+      marqueeBgColor: "#FFffff",
+      marqueeTextColor: "#000000",
+      borderColor: "#FFFFFF",
+      isFirst: true
+    }
+  ];
