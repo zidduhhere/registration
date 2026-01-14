@@ -17,14 +17,15 @@ const Events = () => {
       <ScrollVelocity
         texts={["EVENTS"]}
         numCopies={30}
-        velocity={50}
+        velocity={1}
+        // velocityMapping={{input: [0,1], output: [0, -1]}}
         className="bg-red-700 clash text-white transform-content -rotate-2 h-15 text-4xl flex flex-col items-center justify-center"
       /> 
       <ScrollVelocity
               texts={["PRAVEGA 2026"]}
               numCopies={30}
-              velocity={25}
-              velocityMapping={{ input: [0, 1000], output: [0, -5] }}
+              velocity={.2}
+              
               className="text-red-700 serif font-normal bg-black"
             />
 
