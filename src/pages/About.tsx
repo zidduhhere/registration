@@ -22,14 +22,14 @@ const About = () => {
       <ScrollVelocity
         texts={["ABOUT  PRAVEGA "]}
         numCopies={30}
-        velocity={200}
+        velocity={50}
         
         className="text-white clash bg-green-800 transform-content rotate-1 h-15 text-4xl flex flex-col items-center justify-center"
       />
       <ScrollVelocity
         texts={["IEDC GENESIS"]}
         numCopies={30}
-        velocity={100}
+        velocity={25}
         velocityMapping={{ input: [0, 1000], output: [0, -5] }}
         className="text-green-800 serif font-normal bg-black"
       />
