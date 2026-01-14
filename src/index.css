@@ -190,6 +190,10 @@
 }
 
 
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   scrollbar-width: none;
 }
@@ -206,4 +210,10 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
    transition: all 0.5s ease-in-out ;
  
+}
+
+select {
+    -webkit-appearance: none; /* For WebKit browsers (Chrome, Safari, Edge) */
+    -moz-appearance: none;    /* For Firefox */
+    appearance: none;     
 }

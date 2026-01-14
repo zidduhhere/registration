@@ -17,15 +17,15 @@ const Events = () => {
       <ScrollVelocity
         texts={["EVENTS"]}
         numCopies={30}
-        velocity={1}
-        // velocityMapping={{input: [0,1], output: [0, -1]}}
+        velocity={0.1}
+        
         className="bg-red-700 clash text-white transform-content -rotate-2 h-15 text-4xl flex flex-col items-center justify-center"
       /> 
       <ScrollVelocity
               texts={["PRAVEGA 2026"]}
               numCopies={30}
-              velocity={.2}
-              
+              velocity={0.2}
+              velocityMapping={{input: [0,1], output: [0, -0.1]}}
               className="text-red-700 serif font-normal bg-black"
             />
 
@@ -38,7 +38,7 @@ const Events = () => {
           className="clash text-4xl text-center mt-40 font-semibold text-gray-300"
         />
 
-       <div className="events flex w-full mt-20">
+       <div className="events h-screen flex w-full mt-20">
         <FlowingMenu 
           items={events}
           bgColor="#8F0F0F"

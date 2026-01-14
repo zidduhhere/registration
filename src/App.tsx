@@ -1,28 +1,20 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Layout } from "./components/Layout";
 import Home from "./pages/Home";
-import Events from "./pages/Events";
 import Register from "./pages/Register";
-
 import EventDetails from "./pages/EventDetails";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 
 function App() {
-
   gsap.registerPlugin(ScrollTrigger);
+  
   return (
     <Router>
-      
-      <Layout>
-        
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/events/:id" element={<EventDetails />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
-      </Layout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/events/:id" element={<EventDetails />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
     </Router>
   );
 }

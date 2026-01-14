@@ -20,17 +20,20 @@ const About = () => {
   return (
     <div className=" w-screen h-fit pt-20 ">
       <ScrollVelocity
-        texts={["ABOUT  PRAVEGA "]}
+        texts={["ABOUT PRAVEGA "]}
         numCopies={30}
         velocity={1}
+        velocityMapping={{input: [0,10], output: [0, 0.01]}}
+
         
         className="text-white clash bg-green-800 transform-content rotate-1 h-15 text-4xl flex flex-col items-center justify-center"
       />
       <ScrollVelocity
         texts={["IEDC GENESIS"]}
         numCopies={30}
-        velocity={.2}
-         velocityMapping={{ input: [0, 0], output: [0, -1] }}
+        velocity={0.7}
+        velocityMapping={{input: [0,10], output: [0, -0.1]}}
+         
         className="text-green-800 serif font-normal bg-black"
       />
 
