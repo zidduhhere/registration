@@ -112,7 +112,7 @@ const Home: React.FC = () => {
       <div className="opacity-0 children" style={{ display: 'none' }}>
         <TextPressure text="PRAVEGA 2026" textColor="black" strokeWidth={10} />
        
-        <div className="w-screen overflow-hidden">
+        {/* <div className="w-screen overflow-hidden">
         <video 
           className="w-[60vh] mt-10 mx-auto rounded-full h-60 my-auto object-cover  border-none"
           autoPlay 
@@ -124,7 +124,7 @@ const Home: React.FC = () => {
           Your browser does not support the video tag.
         </video>
         <div className="w-full h-full inset-0 bg-black opacity-90 pointer-events-none"></div>
-      </div>
+      </div> */}
       
         <div className="flex flex-col items-center justify-center text-center pt-10 h-[60vh] gap-4">
           <a href="#about" className="button-text bg-black h-14 w-[60vw] px-10 md:w-[40vw] hover:bg-green-700 text-white serif text-4xl flex items-center justify-center">
