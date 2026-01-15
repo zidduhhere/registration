@@ -1,4 +1,4 @@
-import { ArrowDownCircle, Zap } from "lucide-react";
+import { ArrowDownCircle } from "lucide-react";
 import Stepper, { Step } from "../components/Stepper";
 import { getAllCollegeNames } from "../data/collegeUnits";
 import { eventGuidelines, type EventGuidelines } from "../data/events";
@@ -8,7 +8,7 @@ import {useForm} from "react-hook-form";
 
 const Register = () => {
 
-  const {register, handleSubmit, watch, formState: {errors}, trigger} = useForm();
+  const {register, handleSubmit, formState: {errors}, trigger} = useForm();
   const colleges: string[] = getAllCollegeNames();
   const [eventSelected, setEventSelected] = useState<EventGuidelines | null>(null);
   const [currentStep, setCurrentStep] = useState(1);

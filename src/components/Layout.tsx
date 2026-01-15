@@ -14,7 +14,7 @@ interface LayoutProps {
 
 export const Layout: React.FC<LayoutProps> = ({}) => {
   useGSAP(() => {
-    const firstTimeLine = gsap
+   gsap
       .timeline()
       .from(".main-text", {
         opacity: 0,
@@ -58,7 +58,7 @@ export const Layout: React.FC<LayoutProps> = ({}) => {
           duration: 1.2,
         }
       );
-  });
+  }, []);
 
   return (
     <body className="min-h-screen w-full bg-white  ">

@@ -1,7 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import { eventGuidelines, eventsData } from '../data/events';
 import GradientText from '../components/GradientText';
-import { posterAssets } from '../assets/posters';
 import { useState, useEffect } from 'react';
 
 const EventDetails = () => {
