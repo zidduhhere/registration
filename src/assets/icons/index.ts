@@ -1,9 +1,9 @@
-import lg from "./logo-main.png";
-import str from "./star gradient.png"
-import edRed from "./ed-red.png";
-import arr from "./arrow.png"
-import strb from "./star-black.png"
-import etc from "./eating_emote.png"
+import lg from "./logo-main.webp";
+import str from "./star-gradient.webp"
+import edRed from "./ed-red.webp";
+import arr from "./arrow.webp"
+import strb from "./star-black.webp"
+import etc from "./eating-emote.webp"
 
 export const edRedIcon = edRed;
 export const arrowIcon = arr;
