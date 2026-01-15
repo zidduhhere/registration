@@ -16,6 +16,53 @@ export interface Event {
   maxTeamSize: number;
 }
 
+export type MemberDetails = {
+  name: string;
+  college: string;
+  email: string;
+  phone: string;
+}
+
+type EventGuidelines = {
+  eventName: string;
+  minimumTeamSize: number;
+  maximumTeamSize: number;
+  rules: string[];
+
+}
+
+
+
+export const eventGuidelines: EventGuidelines[] = [
+
+  {
+
+    eventName: "Business Pitching",
+    minimumTeamSize: 1,
+    maximumTeamSize: 6,
+    rules: [
+      "Teams up to 6 members.",
+      "Pitch deck time: 8 minutes + Q&A.",
+      "Slide decks submitted before final presentation.",
+    ],
+  },
+
+  {
+    eventName: "AI Sprint & Workshop",
+    minimumTeamSize: 1,
+    maximumTeamSize: 1,
+    rules: [
+      "Individual teams.",
+      "Bring your laptop."
+    ],
+  },
+
+
+
+
+];
+
+
 export const eventsData: Event[] = [
   {
     id: "business-pitching",

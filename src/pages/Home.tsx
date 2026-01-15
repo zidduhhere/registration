@@ -7,7 +7,6 @@ import TextPressure from "../components/TextPressure";
 import About from "./About";
 import Events from "./Events";
 import { Link } from "react-router-dom";
-import { AlertDialog } from "radix-ui";
 
 
 const Home: React.FC = () => {

@@ -1,11 +1,15 @@
+import {  ArrowDownCircle } from "lucide-react";
 import Stepper, { Step } from "../components/Stepper"
 import { getAllCollegeNames } from "../data/collegeUnits"
+import { eventsData } from "../data/events";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 
 const Register = () => {
 
   const colleges: string[] = getAllCollegeNames();
-
+  const [eventSelected, setEventSelected] = useState<string>("");
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -45,17 +49,37 @@ const Register = () => {
                   <input type="text" placeholder="Name" name="name" className="bg-gray-100 px-4 py-2 rounded-md font-semibold clash"/>
 
                   
-                    <label htmlFor="college" className="block clash text-sm font-semibold mb-2 mt-4">Your College</label>
+                   <div className="max-w-fit relative">
+                    <ArrowDownCircle className="inline-block absolute w-4 top-1/2  right-2"/>
+                    
+                     <label htmlFor="college" className="block clash text-sm font-semibold mb-2 mt-4">Your College</label>
                     <select className="bg-gray-100 px-4 py-2 rounded-md clash max-w-120 text-sm" name="college" id="college">
+                      <option value="" disabled selected>Select your college</option>
                       {colleges.map((college, index) => (
                         <option key={index} value={college.toUpperCase()}>{college.toUpperCase()}</option>
                       ))}
                     </select>
+                   </div>
                   
                 </form>
               </Step>
               <Step>
-                <form action="" className="h-fit py-4 mx-2"></form>
+                <form action="" className="h-fit py-4 mx-2" id="eventSelection" onChange={(e) => setEventSelected((e.target as HTMLSelectElement).value)}>
+                  <div className="max-w-fit relative">
+                    <ArrowDownCircle className="inline-block absolute w-4 top-1/2  right-2"/>
+                     <label htmlFor="eventSelection" className="block clash text-sm font-semibold mb-2 mt-4">Select The Event</label>
+                    <select className="bg-gray-100 px-4 py-2 rounded-md clash max-w-120 text-sm overflow-hidden " name="event" id="eventSelection">
+                      <option value="" disabled selected>Select an event</option>
+                    {eventsData.map((event, index) => (
+
+                      <option key={index} value={event.title}>{event.title}</option>
+                    ))}
+                  
+                  </select>
+                  </div>
+                </form>
+  
+                <Link to="" className="clash text-sm underline leading-2 mx-2 text-[#5227FF]">Check {eventSelected} details</Link>
               </Step>
               <Step>
                 <p>Hi there</p>
