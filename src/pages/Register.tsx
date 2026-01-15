@@ -11,8 +11,8 @@ const Register = () => {
   const {register, handleSubmit, formState: {errors}, trigger} = useForm();
   const colleges: string[] = getAllCollegeNames();
   const [eventSelected, setEventSelected] = useState<EventGuidelines | null>(null);
-  const [currentStep, setCurrentStep] = useState(1);
-  const navigate = useNavigate();
+  const [currentStep, setCurrentStep] = useState(1); 
+const navigate = useNavigate();
   
   const onSubmit = (data: any) => {
     console.log("Form Submitted:");
@@ -46,23 +46,24 @@ const Register = () => {
     }
   };
 
-  const handleNext = async () => {
-    const isValid = await validateStep(currentStep);
-    if(isValid) {
-      setCurrentStep(currentStep + 1);
+  const handleStepChange = async (newStep: number) => {
+    // If moving forward, validate current step
+    if(newStep > currentStep) {
+      const isValid = await validateStep(currentStep);
+      if(!isValid) {
+        console.log(`Step ${currentStep} validation failed`);
+        return; // Don't update step
+      }
     }
-  };
-
-  const handleBack = () => {
-    if(currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-    }
+    setCurrentStep(newStep);
   };
 
   const handleFinalSubmit = async () => {
     const isValid = await validateStep(5);
     if(isValid) {
       handleSubmit(onSubmit)();
+    } else {
+      console.log('Final step validation failed');
     }
   };
 
@@ -76,10 +77,8 @@ const Register = () => {
 
       <div className="body w-full mx-auto">
         <Stepper
-          initialStep={currentStep}
-          onStepChange={(newStep) => {
-            setCurrentStep(newStep);
-          }}
+          initialStep={1}
+          onStepChange={handleStepChange}
           onFinalStepCompleted={handleFinalSubmit}
           className="h-fit mx-auto w-full"
           backButtonText="Back"
@@ -89,17 +88,14 @@ const Register = () => {
           stepCircleContainerClassName="h-fit px-0"
           backButtonProps={{
             className: "bg-black text-white px-4 py-2 rounded-md clash hover:bg-gray-800",
-            onClick: handleBack
           }}
           nextButtonProps={{
             className:
               "bg-green-700 text-white px-4 py-2 h-fit rounded-md clash font-bold hover:bg-green-800",
-            onClick: handleNext
           }}
           finalButtonProps={{
             className:
               "bg-green-700 text-white px-4 py-2 h-fit rounded-md clash font-bold hover:bg-green-800",
-            onClick: handleFinalSubmit
           }}
           stepContainerClassName="text-white"
         >
