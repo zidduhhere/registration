@@ -1,5 +1,3 @@
-import ScrollVelocity from "../components/ScrollVelocity";
-
 const ContactUs = () => {
   const contacts = [
     {
