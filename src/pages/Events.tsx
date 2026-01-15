@@ -22,7 +22,7 @@ const Events = ({events}: EventsProps) => {
 
 
   return (
-    <div id="events" className=" w-screen h-screen relative ">
+    <div id="events" className=" w-screen h-fit mb-10 md:mb-25 relative ">
       
       <ScrollVelocity
         texts={["EVENTS"]}

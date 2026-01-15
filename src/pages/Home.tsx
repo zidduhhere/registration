@@ -6,6 +6,7 @@ import gsap from "gsap";
 import TextPressure from "../components/TextPressure";
 import About from "./About";
 import Events from "./Events";
+import ContactUs from "./ContactUs";
 import { Link } from "react-router-dom";
 import { items } from "../data/events";
 import Watermark from "../components/Watermark";
@@ -111,9 +112,21 @@ const Home: React.FC = () => {
       <div className="opacity-0 children" style={{ display: 'none' }}>
         <TextPressure text="PRAVEGA 2026" textColor="black" strokeWidth={10} />
        
-         
+        <div className="w-screen overflow-hidden">
+        <video 
+          className="w-[60vh] mt-10 mx-auto rounded-full h-60 my-auto object-cover  border-none"
+          autoPlay 
+          loop  
+          playsInline
+          
+        >
+          <source className="border-none object-contain" src="/src/assets/IMG_8676.webm" type="video/webm" />
+          Your browser does not support the video tag.
+        </video>
+        <div className="w-full h-full inset-0 bg-black opacity-90 pointer-events-none"></div>
+      </div>
       
-        <div className="flex flex-col items-center justify-center text-center pt-10 h-screen gap-4">
+        <div className="flex flex-col items-center justify-center text-center pt-10 h-[60vh] gap-4">
           <a href="#about" className="button-text bg-black h-14 w-[60vw] px-10 md:w-[40vw] hover:bg-green-700 text-white serif text-4xl flex items-center justify-center">
             ABOUT
           </a>
@@ -123,12 +136,16 @@ const Home: React.FC = () => {
           <Link to="/register" className="button-text bg-black h-14 w-[60vw] md:w-[40vw] text-white serif text-4xl px-10 flex items-center justify-center">
             REGISTRATION
           </Link>
-          <div className="button-text bg-black h-14 w-[60vw] md:w-[40vw] text-white serif text-4xl flex items-center justify-center">
+          <a href="#contact" className="button-text bg-black h-14 w-[60vw] md:w-[40vw] text-white serif text-4xl flex items-center justify-center">
             CONTACT US
-          </div>
+          </a>
         </div>
       <About />
       <Events events={items}/>
+      
+      {/* Video Section */}
+     
+      <ContactUs />
       </div>
       <Watermark />
     </div>
