@@ -4,7 +4,7 @@ import { motion, AnimatePresence, type Variants } from 'motion/react';
 interface StepperProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
   initialStep?: number;
-  onStepChange?: (step: number) => void;
+  onStepChange?: (step: number, currentStep: number) => void | boolean | Promise<boolean>;
   onFinalStepCompleted?: () => void;
   stepCircleContainerClassName?: string;
   stepContainerClassName?: string;
@@ -48,32 +48,43 @@ export default function Stepper({
   const isCompleted = currentStep > totalSteps;
   const isLastStep = currentStep === totalSteps;
 
-  const updateStep = (newStep: number) => {
-    setCurrentStep(newStep);
+  const updateStep = async (newStep: number) => {
     if (newStep > totalSteps) {
+      setCurrentStep(newStep);
       onFinalStepCompleted();
-    } else {
-      onStepChange(newStep);
+      return true;
     }
+    
+    // Call onStepChange and check if step change is allowed
+    const result = onStepChange(newStep, currentStep);
+    const canProceed = result instanceof Promise ? await result : result;
+    
+    // If onStepChange returns false, don't update the step
+    if (canProceed === false) {
+      return false;
+    }
+    
+    setCurrentStep(newStep);
+    return true;
   };
 
-  const handleBack = () => {
+  const handleBack = async () => {
     if (currentStep > 1) {
       setDirection(-1);
-      updateStep(currentStep - 1);
+      await updateStep(currentStep - 1);
     }
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (!isLastStep) {
       setDirection(1);
-      updateStep(currentStep + 1);
+      await updateStep(currentStep + 1);
     }
   };
 
-  const handleComplete = () => {
+  const handleComplete = async () => {
     setDirection(1);
-    updateStep(totalSteps + 1);
+    await updateStep(totalSteps + 1);
   };
 
   return (
@@ -95,9 +106,9 @@ export default function Stepper({
                   renderStepIndicator({
                     step: stepNumber,
                     currentStep,
-                    onStepClick: clicked => {
+                    onStepClick: async clicked => {
                       setDirection(clicked > currentStep ? 1 : -1);
-                      updateStep(clicked);
+                      await updateStep(clicked);
                     }
                   })
                 ) : (
@@ -106,9 +117,9 @@ export default function Stepper({
                     step={stepNumber}
                     disableStepIndicators={disableStepIndicators}
                     currentStep={currentStep}
-                    onClickStep={clicked => {
+                    onClickStep={async clicked => {
                       setDirection(clicked > currentStep ? 1 : -1);
-                      updateStep(clicked);
+                      await updateStep(clicked);
                     }}
                   />
                 )}
@@ -282,7 +293,7 @@ function StepIndicator({ step, currentStep, onClickStep, disableStepIndicators =
         {status === 'complete' ? (
           <CheckIcon className="h-4 w-4 text-white" />
         ) : status === 'active' ? (
-          <div className="h-3 w-3 rounded-full bg-[#fff]" />
+          <div className="h-3 w-3 rounded-full bg-white" />
         ) : (
           <span className="text-sm">{step}</span>
         )}

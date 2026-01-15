@@ -1,7 +1,8 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { eventGuidelines, eventsData } from '../data/events';
 import GradientText from '../components/GradientText';
 import { useState, useEffect } from 'react';
+import Watermark from '../components/Watermark';
 
 const EventDetails = () => {
 
@@ -9,6 +10,7 @@ const EventDetails = () => {
     const [copiedStudent, setCopiedStudent] = useState(false);
     const [copiedFaculty, setCopiedFaculty] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const navigate = useNavigate();
 
 
     const copyToClipboard = async (text: string, type: 'student' | 'faculty') => {
@@ -50,9 +52,9 @@ const EventDetails = () => {
     if (isMobile) {
       return (
         <div className='min-h-screen bg-white pb-10 w-fit '>
-          <Link to="/" className='fixed top-4 left-4 z-50 px-4 py-2 clash font-semibold text-white bg-black rounded-lg shadow-lg'>
+          <div onClick={() => navigate(-1)} className='fixed top-4 left-4 z-50 px-4 py-2 clash font-semibold text-white bg-black rounded-lg shadow-lg cursor-pointer'>
             ← Back
-          </Link>
+          </div>
           
           <div className='pt-20 px-5 flex flex-col items-center justify-center w-full'>
             <GradientText
@@ -145,7 +147,7 @@ const EventDetails = () => {
     // Desktop View
     return (
       <div>
-        <Link to="/" className='px-4 absolute top-8 left-8 clash font-semibold text-white bg-black p-2'>Back Home</Link>
+        <div onClick={() => navigate(-1)} className='px-4 absolute top-8 left-8 clash font-semibold text-white bg-black p-2 cursor-pointer'>Go Back</div>
         <div className='flex flex-col justify-center w-full h-screen'>
           <div className='details md:grid md:grid-cols-12 w-full px-[5vw]'>
             <div className='md:col-span-7 left gap-2 flex md:flex-col flex-col-reverse align-start text-start'>
@@ -186,11 +188,12 @@ const EventDetails = () => {
             </div>
           </div>
           <div className='w-full flex justify-center items-center mb-10'>
-            <Link to="/register" className='bg-black p-2 px-8 min-w-120 text-center text-white clash font-semibold text-2xl hover:bg-gray-800'>
+            <Link to="/register" className='bg-black p-2 px-8 min-w-120 rounded-full text-center text-white clash font-semibold text-2xl hover:bg-gray-800'>
               Register Now
             </Link>
           </div>
         </div>
+        <Watermark />
       </div>
     )
 }

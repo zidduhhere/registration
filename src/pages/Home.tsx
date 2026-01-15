@@ -8,6 +8,7 @@ import About from "./About";
 import Events from "./Events";
 import { Link } from "react-router-dom";
 import { items } from "../data/events";
+import Watermark from "../components/Watermark";
 
 
 const Home: React.FC = () => {
@@ -18,7 +19,21 @@ const Home: React.FC = () => {
 
 
   useGSAP(() => {
-    if (!showLoading) return; // Don't run if already loaded
+    if (!showLoading) {
+      // If returning visitor, show content immediately without animation
+      gsap.set(".children", { 
+        display: "flex", 
+        opacity: 1, 
+        y: 0,
+        flexDirection: "column",
+        alignItems: "center",
+        textAlign: "center"
+      });
+      gsap.set(".hero-container", {
+        display: "none"
+      });
+      return;
+    }
     
      gsap
       .timeline({
@@ -71,8 +86,9 @@ const Home: React.FC = () => {
       );
     }, [showLoading]);
 
-if(showLoading) {
   return (
+    <div className="min-h-screen w-full bg-white">
+      {/* Hero Container - shown on first visit */}
       <div className="flex flex-col gap-2 justify-center items-center h-screen hero-container">
         <TextType
           text={"PRAVEGA"}
@@ -90,15 +106,12 @@ if(showLoading) {
           className="clash text-3xl hint-text"
         />
       </div>
-  )
-}
 
-  return (
-    <div className="min-h-screen w-full bg-white ">
-      <div className="z-100  children">
+      {/* Main Content - shown after animation or immediately for return visitors */}
+      <div className="opacity-0 children" style={{ display: 'none' }}>
         <TextPressure text="PRAVEGA 2026" textColor="black" strokeWidth={10} />
        
-         <h1 className="text-5xl clash font-bold text-red-600">Registrations open on 16/01/2026</h1>
+         
       
         <div className="flex flex-col items-center justify-center text-center pt-10 h-screen gap-4">
           <a href="#about" className="button-text bg-black h-14 w-[60vw] px-10 md:w-[40vw] hover:bg-green-700 text-white serif text-4xl flex items-center justify-center">
@@ -117,6 +130,7 @@ if(showLoading) {
       <About />
       <Events events={items}/>
       </div>
+      <Watermark />
     </div>
   );
 };

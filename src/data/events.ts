@@ -9,7 +9,6 @@ export const eventId = {
   AI_SPRINT_WORKSHOP: "ai-sprint-workshop",
   RC_CAR: "rc-car",
   DRONE_RACE: "drone-race",
-  IEDC_TALK_SESSION: "iedc-talks",
   CODE_DEBUGGING: "code-debugging",
   CIRCUIT_DEBUGGING: "circuit-debugging",
   WEB_DEVELOPMENT: "web-development",
@@ -309,27 +308,7 @@ export const eventsData: Event[] = [
     color2: "#fbbf24",
     poster: posterAssets["design-for-civil"]
   },
-  {
-    id: eventId.IEDC_TALK_SESSION,
-    title: "IEDC Talk Session",
-    duration: "1 Day",
-    category: "Talk",
-    description: "A one-day expert talk hosted by IEDC.",
-    longDescription:
-      "Join industry speakers and founders for a one-day talk session covering entrepreneurship, incubation, and real-world startup advice.",
-
-    date: "Feb 3, 2025",
-    fee: 0,
-
-    minTeamSize: 1,
-    maxTeamSize: 100,
-    rules: ["Open to all students."],
-    contact1: "012-345-6789",
-    contact2: "012-345-6790",
-    color1: "#134e4a",
-    color2: "#5eead4",
-    poster: " "
-  },
+  
   {
     id: eventId.STUDENT_DEV_UIUX,
     duration: "1 Day",
@@ -489,17 +468,7 @@ export const items : MenuItemProps[] = [{
       borderColor: "#FFFFFF",
       isFirst: true
     },
-    {
-      link: `/events/${eventId.IEDC_TALK_SESSION}`,
-      text: "IEDC TALKS",
-      image: eatingEmote,
-      speed: 30,
-      textColor: "#FFFFFF",
-      marqueeBgColor: "#FFffff",
-      marqueeTextColor: "#000000",
-      borderColor: "#FFFFFF",
-      isFirst: true
-    },
+    
     {
       link: `/events/${eventId.DESIGN_FOR_CIVIL}`,
       text: "DESIGN FOR STRUCTURE",
