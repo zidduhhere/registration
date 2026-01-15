@@ -18,7 +18,7 @@ const About = () => {
     });
   }, []);
   return (
-    <div className=" w-screen h-fit pt-20 ">
+    <div className=" w-screen h-fit pt-20 " id="about">
       <ScrollVelocity
         texts={["ABOUT PRAVEGA "]}
         numCopies={30}

@@ -87,8 +87,14 @@ const MenuItem: React.FC<MenuItemProps> = ({
       if (!marqueeContent) return;
       const contentWidth = marqueeContent.offsetWidth;
       const viewportWidth = window.innerWidth;
-      const needed = Math.ceil(viewportWidth / contentWidth) + 2;
-      setRepetitions(Math.max(4, needed));
+      if (contentWidth === 0 || viewportWidth === 0) {
+      setRepetitions(4);
+      return;
+    }
+      const needed = Math.ceil(viewportWidth / (contentWidth + 2));
+      const safeRepetitions = Math.max(4, Math.min(needed, 100));
+      setRepetitions(safeRepetitions);
+      
     };
 
     calculateRepetitions();
@@ -170,10 +176,10 @@ const MenuItem: React.FC<MenuItemProps> = ({
       >
         <div className="h-full w-fit flex" ref={marqueeInnerRef}>
           {[...Array(repetitions)].map((_, idx) => (
-            <div className="marquee-part flex items-center flex-shrink-0" key={idx} style={{ color: marqueeTextColor }}>
+            <div className="marquee-part flex items-center shrink-0" key={idx} style={{ color: marqueeTextColor }}>
               <span className="whitespace-nowrap uppercase font-normal text-[4vh] leading-[1] px-[1vw]">{text}</span>
               <div
-                className="w-[200px] h-[7vh] my-[2em] mx-[2vw] py-[1em] rounded-[50px] bg-cover bg-center"
+                className="w-50 h-[7vh] my-[2em] mx-[2vw] py-[1em] rounded-[50px] bg-cover bg-center"
                 style={{ backgroundImage: `url(${image})` }}
               />
             </div>

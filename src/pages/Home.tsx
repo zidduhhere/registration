@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import TextType from "../components/TextType";
 import ShinyText from "../components/ShinyText";
 import { useGSAP } from "@gsap/react";
@@ -7,12 +7,27 @@ import TextPressure from "../components/TextPressure";
 import About from "./About";
 import Events from "./Events";
 import { Link } from "react-router-dom";
+import { items } from "../data/events";
 
 
 const Home: React.FC = () => {
+
+   const [showLoading, setShowLoading] = useState(() => {
+    return !sessionStorage.getItem('hasVisitedHome');
+  });
+
+
   useGSAP(() => {
-    gsap
-      .timeline()
+    if (!showLoading) return; // Don't run if already loaded
+    
+     gsap
+      .timeline({
+        onComplete: () => {
+          // Set loading to false when animation completes
+          setShowLoading(false);
+          sessionStorage.setItem('hasVisitedHome', 'true');
+        }
+      })
       .from(".main-text", {
         opacity: 0,
         y: -40,
@@ -37,17 +52,16 @@ const Home: React.FC = () => {
         display: "none",
       })
       .fromTo(
-        ".children , .events",
+        ".children",
         {
+          display: "flex",
           opacity: 0,
           y: 40,
-          ease: "power3.out",
         },
         {
           opacity: 1,
           y: 0,
           pointerEvents: "all",
-          display: "flex",
           flexDirection: "column",
           alignItems: "center",
           textAlign: "center",
@@ -55,11 +69,10 @@ const Home: React.FC = () => {
           duration: .7,
         }
       );
-  });
+    }, [showLoading]);
 
+if(showLoading) {
   return (
-    <div className="min-h-screen w-full bg-white">
-      {/* Hero Container */}
       <div className="flex flex-col gap-2 justify-center items-center h-screen hero-container">
         <TextType
           text={"PRAVEGA"}
@@ -77,16 +90,16 @@ const Home: React.FC = () => {
           className="clash text-3xl hint-text"
         />
       </div>
+  )
+}
 
-      <div className="hidden z-100 opacity-0 children">
-
-        
+  return (
+    <div className="min-h-screen w-full bg-white ">
+      <div className="z-100  children">
         <TextPressure text="PRAVEGA 2026" textColor="black" strokeWidth={10} />
        
          <h1 className="text-5xl clash font-bold text-red-600">Registrations open on 16/01/2026</h1>
       
-
-        {/* Navigation Elements */}
         <div className="flex flex-col items-center justify-center text-center pt-10 h-screen gap-4">
           <a href="#about" className="button-text bg-black h-14 w-[60vw] px-10 md:w-[40vw] hover:bg-green-700 text-white serif text-4xl flex items-center justify-center">
             ABOUT
@@ -101,11 +114,8 @@ const Home: React.FC = () => {
             CONTACT US
           </div>
         </div>
-        <About />
-      </div>
-
-      <div className="opacity-0 events">
-        <Events />
+      <About />
+      <Events events={items}/>
       </div>
     </div>
   );

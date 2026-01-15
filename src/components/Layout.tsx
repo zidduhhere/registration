@@ -6,6 +6,7 @@ import gsap from "gsap";
 import TextPressure from "./TextPressure";
 import About from "../pages/About";
 import Events from "../pages/Events";
+import { items } from "../data/events";
 
 interface LayoutProps {
   children: ReactNode;
@@ -13,7 +14,7 @@ interface LayoutProps {
 
 export const Layout: React.FC<LayoutProps> = ({}) => {
   useGSAP(() => {
-    gsap
+    const firstTimeLine = gsap
       .timeline()
       .from(".main-text", {
         opacity: 0,
@@ -105,7 +106,7 @@ export const Layout: React.FC<LayoutProps> = ({}) => {
         
       </div>
   
-        <div className="opacity-0 events"> <Events /></div>
+        <div className="opacity-0 events"> <Events events={items} /></div>
       
     </body>
   );

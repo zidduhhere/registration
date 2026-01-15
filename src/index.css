@@ -217,3 +217,20 @@ select {
     -moz-appearance: none;    /* For Firefox */
     appearance: none;     
 }
+
+.screenshot input[type="file"] {
+  cursor:pointer;
+  color: black;
+      width: fit-content;
+
+}
+
+::file-selector-button {
+  background-color: black;
+  border-radius: 0%;
+  overflow: visible;
+  padding: 4px 4px;
+  color: white;
+  width: fit-content;
+
+}

@@ -1,14 +1,24 @@
+import { useEffect, useState } from "react";
 import DecryptedText from "../components/DecryptedText"
 import FlowingMenu, { type MenuItemProps } from "../components/FlowingMenu"
 import ScrollVelocity from "../components/ScrollVelocity"
-import { items } from "../data/events";
 
 
-const Events = () => {
+interface EventsProps {
+  events: MenuItemProps[];
+}
 
-  let events: MenuItemProps[] = [];
-  events = items;
-   
+const Events = ({events}: EventsProps) => {
+
+  const [showChild, setShowChild] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+        setShowChild(true);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [])
+ 
 
 
   return (
@@ -39,11 +49,12 @@ const Events = () => {
         />
 
        <div className="events h-screen flex w-full mt-20">
-        <FlowingMenu 
+        {showChild && <FlowingMenu 
           items={events}
+          
           bgColor="#8F0F0F"
           borderColor="#000000"
-        />
+        />}
        </div>
         
       </div>
