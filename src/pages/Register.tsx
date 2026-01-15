@@ -7,7 +7,6 @@ import { useState, useEffect } from "react";
 import {useForm} from "react-hook-form";
 import { useRegistration } from "../hooks/useRegistration";
 import type { RegistrationData } from "../types/Registration";
-import Watermark from "../components/Watermark";
 
 const Register = () => {
 
@@ -567,7 +566,7 @@ const Register = () => {
           </Step>
         </Stepper>
       </div>
-      <Watermark />
+      
     </div>
   );
 };

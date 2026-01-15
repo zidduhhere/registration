@@ -107,8 +107,93 @@ export const eventGuidelines: EventGuidelines[] = [
       ],
       price: paymentAssets[750]
     },
-
-
+    {
+      eventId: eventId.CODE_DEBUGGING,
+      eventName: "Code Debugging",
+      minimumTeamSize: 1,
+      maximumTeamSize: 2,
+      rules: [
+        "Individual or pairs.",
+        "Internet allowed for documentation only."
+      ],
+      price: paymentAssets[200]
+    },
+    {
+      eventId: eventId.CIRCUIT_DEBUGGING,
+      eventName: "Circuit Debugging",
+      minimumTeamSize: 1,
+      maximumTeamSize: 2,
+      rules: [
+        "Safety goggles required.",
+        "No external powered test rigs allowed."
+      ],
+      price: paymentAssets[200]
+    },
+    {
+      eventId: eventId.WEB_DEVELOPMENT,
+      eventName: "Web Development",
+      minimumTeamSize: 1,
+      maximumTeamSize: 4,
+      rules: [
+        "Teams of up to 4.",
+        "Use of public libraries allowed."
+      ],
+      price: paymentAssets[200]
+    },
+    {
+      eventId: eventId.DESIGN_FOR_THE_SKY,
+      eventName: "Design for the Sky",
+      minimumTeamSize: 1,
+      maximumTeamSize: 4,
+      rules: [
+        "Presentations limited to 10 minutes.",
+        "Use provided template for posters."
+      ],
+      price: paymentAssets[200]
+    },
+    {
+      eventId: eventId.DESIGN_FOR_CIVIL,
+      eventName: "Design for Civil",
+      minimumTeamSize: 1,
+      maximumTeamSize: 5,
+      rules: [
+        "Teams up to 5.",
+        "Physical model materials provided on request."
+      ],
+      price: paymentAssets[200]
+    },
+    {
+      eventId: eventId.STUDENT_DEV_UIUX,
+      eventName: "Student Development Program - UI/UX",
+      minimumTeamSize: 1,
+      maximumTeamSize: 100,
+      rules: [
+        "Registration encouraged."
+      ],
+      price: paymentAssets[200]
+    },
+    {
+      eventId: eventId.DRONE_MAKING_WORKSHOP,
+      eventName: "Drone Making Workshop",
+      minimumTeamSize: 1,
+      maximumTeamSize: 2,
+      rules: [
+        "Bring your own laptop.",
+        "Prior basic electronics knowledge recommended."
+      ],
+      price: paymentAssets[200]
+    },
+    {
+      eventId: eventId.ROBOTICS_WORKSHOP,
+      eventName: "Robotics Workshop",
+      minimumTeamSize: 1,
+      maximumTeamSize: 2,
+      rules: [
+        "Bring your own laptop.",
+        "Prior basic electronics knowledge recommended."
+      ],
+      price: paymentAssets[200]
+    }
 
 
 
