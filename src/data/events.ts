@@ -176,7 +176,7 @@ export const eventGuidelines: EventGuidelines[] = [
       eventId: eventId.DRONE_MAKING_WORKSHOP,
       eventName: "Drone Making Workshop",
       minimumTeamSize: 1,
-      maximumTeamSize: 2,
+      maximumTeamSize: 1,
       rules: [
         "Bring your own laptop.",
         "Prior basic electronics knowledge recommended."
@@ -187,7 +187,7 @@ export const eventGuidelines: EventGuidelines[] = [
       eventId: eventId.ROBOTICS_WORKSHOP,
       eventName: "Robotics Workshop",
       minimumTeamSize: 1,
-      maximumTeamSize: 2,
+      maximumTeamSize: 1,
       rules: [
         "Bring your own laptop.",
         "Prior basic electronics knowledge recommended."
@@ -429,7 +429,7 @@ export const eventsData: Event[] = [
     fee: 10000,
 
     minTeamSize: 1,
-    maxTeamSize: 2,
+    maxTeamSize: 1,
     rules: ["Bring your own laptop.", "Prior basic electronics knowledge recommended."],
     contact1: "234-567-8901",
     contact2: "234-567-8902",
