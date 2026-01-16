@@ -6,7 +6,7 @@ export const useRegistration = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const uploadScreenshot = async (file: File, eventId: string): Promise<string | null> => {
+  const uploadScreenshot = async (file: File, eventId: string): Promise<{ url: string; filePath: string } | null> => {
     try {
       const fileExt = file.name.split('.').pop();
       const fileName = `${eventId}-${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
@@ -25,10 +25,28 @@ export const useRegistration = () => {
         .from('registration-screenshots')
         .getPublicUrl(filePath);
 
-      return publicUrl;
+      return { url: publicUrl, filePath };
     } catch (err) {
       console.error('Screenshot upload error:', err);
       return null;
+    }
+  };
+
+  const deleteScreenshot = async (filePath: string): Promise<boolean> => {
+    try {
+      const { error } = await supabase.storage
+        .from('registration-screenshots')
+        .remove([filePath]);
+
+      if (error) {
+        console.error('Error deleting screenshot:', error);
+        return false;
+      }
+
+      return true;
+    } catch (err) {
+      console.error('Screenshot deletion error:', err);
+      return false;
     }
   };
 
@@ -72,14 +90,18 @@ export const useRegistration = () => {
   const register = async (data: RegistrationData): Promise<RegistrationResponse> => {
     setLoading(true);
     setError(null);
+    let uploadedFilePath: string | null = null;
 
     try {
       // Upload screenshot first
-      const screenshotUrl = await uploadScreenshot(data.screenshotFile, data.eventId);
+      const uploadResult = await uploadScreenshot(data.screenshotFile, data.eventId);
       
-      if (!screenshotUrl) {
+      if (!uploadResult) {
         throw new Error('Failed to upload screenshot. Please try again.');
       }
+
+      uploadedFilePath = uploadResult.filePath;
+      const screenshotUrl = uploadResult.url;
 
       // Map form data to database structure
       const tableData = mapFormDataToTable(data, screenshotUrl);
@@ -91,6 +113,11 @@ export const useRegistration = () => {
         .select();
 
       if (insertError) {
+        // Delete the uploaded screenshot if registration fails
+        if (uploadedFilePath) {
+          await deleteScreenshot(uploadedFilePath);
+          console.log('Screenshot deleted due to registration failure');
+        }
         throw new Error(insertError.message);
       }
 
@@ -100,6 +127,12 @@ export const useRegistration = () => {
         data: insertData,
       };
     } catch (err: any) {
+      // Ensure screenshot is deleted on any error
+      if (uploadedFilePath) {
+        await deleteScreenshot(uploadedFilePath);
+        console.log('Screenshot deleted due to error');
+      }
+      
       const errorMessage = err.message || 'Registration failed. Please try again.';
       setError(errorMessage);
       setLoading(false);

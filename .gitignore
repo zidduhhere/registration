@@ -28,3 +28,8 @@ dist-ssr
 .env.local
 .env.*.local
 .*.env
+
+src/supabase/*.sql
+
+# Admin dashboard - Do not publish
+src/admin/
