@@ -407,7 +407,7 @@ export const eventsData: Event[] = [
     fee: 0,
 
     minTeamSize: 1,
-    maxTeamSize: 100,
+    maxTeamSize: 2,
     rules: ["Registration encouraged."],
     contact1: "+919995762807",
     contact2: "+919497775753",
