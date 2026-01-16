@@ -339,12 +339,12 @@ export const eventsData: Event[] = [
     longDescription:
       "Teams build a small web app from scratch in a single day; judged on functionality, design, and performance.",
 
-    date: "Feb 4, 2025",
+    date: "Feb 2, 2025",
     fee: 5000,
 
     minTeamSize: 1,
-    maxTeamSize: 4,
-    rules: ["Teams of up to 4.", "Use of public libraries allowed."],
+    maxTeamSize: 2,
+    rules: ["Teams of up to 2.", "Use of public libraries allowed."],
     contact1: "+919496905672",
     contact2: "+919092080155",
     color1: "#6b21a8",
