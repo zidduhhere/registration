@@ -133,7 +133,7 @@ export const eventGuidelines: EventGuidelines[] = [
       eventId: eventId.WEB_DEVELOPMENT,
       eventName: "Web Development",
       minimumTeamSize: 1,
-      maximumTeamSize: 4,
+      maximumTeamSize: 2,
       rules: [
         "Teams of up to 4.",
         "Use of public libraries allowed."
@@ -451,7 +451,7 @@ export const eventsData: Event[] = [
     fee: 10000,
 
     minTeamSize: 1,
-    maxTeamSize: 2,
+    maxTeamSize: 1,
     rules: ["Bring your own laptop.", "Prior basic electronics knowledge recommended."],
     contact1: "345-678-9012",
     contact2: "345-678-9013",
