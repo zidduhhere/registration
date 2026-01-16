@@ -18,6 +18,7 @@ const Register = () => {
   const [showRetry, setShowRetry] = useState(false);
   const [savedFormData, setSavedFormData] = useState<any>(null);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [isFileValid, setIsFileValid] = useState(false);
   const navigate = useNavigate();
   const { register: registerUser, loading, error: registrationError } = useRegistration();
 
@@ -309,7 +310,8 @@ const Register = () => {
           }}
           finalButtonProps={{
             className:
-              "bg-green-700 text-white px-4 py-2 h-fit rounded-md clash font-bold hover:bg-green-800",
+              "bg-green-700 text-white px-4 py-2 h-fit rounded-md clash font-bold hover:bg-green-800 disabled:opacity-50 disabled:cursor-not-allowed",
+            disabled: !isFileValid,
           }}
           stepContainerClassName="text-white"
         >
@@ -337,7 +339,7 @@ const Register = () => {
           </Step>
           
           <Step>
-            <ScreenshotUpload register={register} errors={errors} />
+            <ScreenshotUpload register={register} errors={errors} onFileValidityChange={setIsFileValid} />
           </Step>
         </Stepper>
       </div>

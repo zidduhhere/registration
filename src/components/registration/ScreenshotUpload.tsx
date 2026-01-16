@@ -3,9 +3,25 @@ import { type UseFormRegister, type FieldErrors } from "react-hook-form";
 interface ScreenshotUploadProps {
   register: UseFormRegister<any>;
   errors: FieldErrors;
+  onFileValidityChange: (isValid: boolean) => void;
 }
 
-const ScreenshotUpload = ({ register, errors }: ScreenshotUploadProps) => {
+const ScreenshotUpload = ({ register, errors, onFileValidityChange }: ScreenshotUploadProps) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) {
+      onFileValidityChange(false);
+      return;
+    }
+    
+    const file = files[0];
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    const isValidType = allowedTypes.includes(file.type);
+    const isValidSize = file.size < 5000000; // 5MB
+    
+    onFileValidityChange(isValidType && isValidSize);
+  };
+
   return (
     <div className="flex flex-col justify-center items-center gap-8 py-4 mx-2 screenshot">
       <label className="clash font-semibold" htmlFor="fileUpload">
@@ -23,7 +39,8 @@ const ScreenshotUpload = ({ register, errors }: ScreenshotUploadProps) => {
               if(!files || files.length === 0) return true;
               return ['image/jpeg', 'image/png', 'image/jpg'].includes(files[0].type) || 'Only JPG, JPEG, PNG allowed';
             }
-          }
+          },
+          onChange: handleFileChange
         })}
         className="bg-gray-100 p-2 rounded-md clash text-black" 
         type="file" 

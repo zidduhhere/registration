@@ -403,7 +403,7 @@ export const eventsData: Event[] = [
     longDescription:
       "A speaker-led session and interactive workshop on UI/UX best practices, career development tips, and hands-on exercises for students.",
 
-    date: "Feb 3, 2025",
+    date: "Feb 2, 2026",
     fee: 0,
 
     minTeamSize: 1,
