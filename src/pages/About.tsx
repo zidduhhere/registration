@@ -1,20 +1,93 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { velocityEq } from "../assets/svg";
 import ScrollVelocity from "../components/ScrollVelocity";
 import { logoMain } from "../assets/icons";
+
+gsap.registerPlugin(ScrollTrigger);
+
 const About = () => {
   useGSAP(() => {
-    gsap.from(".heading", {
+    // Animate the equation image
+    gsap.from(".about-equation img", {
       scrollTrigger: {
-        trigger: "#about",
-        start: "top top",
-        end: "+=600",
+        trigger: ".about-equation",
+        start: "top 80%",
+        end: "top 30%",
         scrub: 1,
       },
-      y: 200,
+      scale: 0.5,
+      rotation: -15,
       opacity: 0,
+      ease: "power2.out",
+    });
+
+    // Animate the question text
+    gsap.from(".about-equation > p", {
+      scrollTrigger: {
+        trigger: ".about-equation > p",
+        start: "top 85%",
+        toggleActions: "play none none reverse",
+      },
+      y: 50,
+      opacity: 0,
+      duration: 1,
       ease: "power3.out",
+    });
+
+    // Animate the description text
+    gsap.from(".about-equation .clash", {
+      scrollTrigger: {
+        trigger: ".about-equation .clash",
+        start: "top 85%",
+        toggleActions: "play none none reverse",
+      },
+      y: 50,
+      opacity: 0,
+      duration: 1,
+      delay: 0.3,
+      ease: "power3.out",
+    });
+
+    // Animate logo section title
+    gsap.from(".logo-definition > p", {
+      scrollTrigger: {
+        trigger: ".logo-definition",
+        start: "top 80%",
+        toggleActions: "play none none reverse",
+      },
+      scale: 0.8,
+      opacity: 0,
+      duration: 0.8,
+      ease: "back.out(1.7)",
+    });
+
+    // Animate logo and text container
+    gsap.from(".logo-definition .flex.flex-row", {
+      scrollTrigger: {
+        trigger: ".logo-definition .flex.flex-row",
+        start: "top 85%",
+        toggleActions: "play none none reverse",
+      },
+      y: 60,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out",
+    });
+
+    // Animate logo image with rotation
+    gsap.from(".logo-definition img", {
+      scrollTrigger: {
+        trigger: ".logo-definition img",
+        start: "top 85%",
+        toggleActions: "play none none reverse",
+      },
+      rotation: -180,
+      scale: 0,
+      opacity: 0,
+      duration: 1.2,
+      ease: "back.out(1.7)",
     });
   }, []);
   return (
