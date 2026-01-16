@@ -166,7 +166,7 @@ export const eventGuidelines: EventGuidelines[] = [
       eventId: eventId.STUDENT_DEV_UIUX,
       eventName: "Student Development Program - UI/UX",
       minimumTeamSize: 1,
-      maximumTeamSize: 100,
+      maximumTeamSize: 2,
       rules: [
         "Registration encouraged."
       ],
