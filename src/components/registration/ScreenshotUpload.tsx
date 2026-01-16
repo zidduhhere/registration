@@ -24,6 +24,7 @@ const ScreenshotUpload = ({ register, errors, onFileValidityChange }: Screenshot
 
   return (
     <div className="flex flex-col justify-center items-center gap-8 py-4 mx-2 screenshot">
+      <h4 className="clash text-red-500">The screenshot size shouuld be less than 2MB</h4>
       <label className="clash font-semibold" htmlFor="fileUpload">
         Upload the screenshot <span className="text-red-500">*</span>
       </label>
