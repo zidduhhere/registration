@@ -32,7 +32,7 @@ export const useRegistration = () => {
     }
   };
 
-  const deleteScreenshot = async (filePath: string): Promise<boolean> => {
+  const deleteScreenshot = async (filePath: string): Promise<void> => {
     try {
       const { error } = await supabase.storage
         .from('registration-screenshots')
@@ -40,13 +40,11 @@ export const useRegistration = () => {
 
       if (error) {
         console.error('Error deleting screenshot:', error);
-        return false;
+      } else {
+        console.log('Screenshot deleted successfully:', filePath);
       }
-
-      return true;
     } catch (err) {
       console.error('Screenshot deletion error:', err);
-      return false;
     }
   };
 
@@ -113,10 +111,9 @@ export const useRegistration = () => {
         .select();
 
       if (insertError) {
-        // Delete the uploaded screenshot if registration fails
+        // Delete the uploaded screenshot since registration failed
         if (uploadedFilePath) {
           await deleteScreenshot(uploadedFilePath);
-          console.log('Screenshot deleted due to registration failure');
         }
         throw new Error(insertError.message);
       }
@@ -127,10 +124,9 @@ export const useRegistration = () => {
         data: insertData,
       };
     } catch (err: any) {
-      // Ensure screenshot is deleted on any error
+      // Clean up uploaded screenshot on any error
       if (uploadedFilePath) {
         await deleteScreenshot(uploadedFilePath);
-        console.log('Screenshot deleted due to error');
       }
       
       const errorMessage = err.message || 'Registration failed. Please try again.';
