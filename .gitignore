@@ -32,4 +32,3 @@ dist-ssr
 src/supabase/*.sql
 
 # Admin dashboard - Do not publish
-src/admin/
