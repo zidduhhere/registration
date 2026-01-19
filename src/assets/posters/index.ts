@@ -8,8 +8,9 @@ import webDevelopment from "./web.webp"
 import designSky from "./design-mech.webp"
 import designCivil from "./design-civil.webp"
 import figmaSdp from "./figma.webp"
-import droneMaking from "./drone.webp"
-import robotics from "./web.webp"
+import droneMaking from "./drone-workshop.webp"
+import robotics from "./robotics-workshop.webp"
+import primavera from "./civil-workshop.webp"
 
 export const posterAssets = {
     "business-pitching": business,
@@ -23,5 +24,6 @@ export const posterAssets = {
     "design-for-civil": designCivil,
     "figma-sdp": figmaSdp,
     "drone-making-workshop": droneMaking,
-    "robotics-workshop": robotics
+    "robotics-workshop": robotics,
+    "primavera-workshop": primavera
 }

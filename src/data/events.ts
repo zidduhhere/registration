@@ -16,7 +16,9 @@ export const eventId = {
   DESIGN_FOR_CIVIL: "design-for-civil",
   STUDENT_DEV_UIUX: "figma-sdp",
   DRONE_MAKING_WORKSHOP: "drone-making-workshop",
-  ROBOTICS_WORKSHOP: "robotics-workshop"
+  ROBOTICS_WORKSHOP: "robotics-workshop",
+  PRIMEVERA_WORKSHOP: "primevera-workshop"
+
 }
 
 
@@ -193,6 +195,18 @@ export const eventGuidelines: EventGuidelines[] = [
         "Prior basic electronics knowledge recommended."
       ],
       price: paymentAssets[200]
+    },
+
+    {
+      eventId: eventId.PRIMEVERA_WORKSHOP,
+      eventName: "Primavera P6 Workshop",
+      minimumTeamSize: 1,
+      maximumTeamSize: 1,
+      rules: [
+        "Bring your own laptop.",
+        "Prior basic knowledge of project management recommended."
+      ],
+      price: paymentAssets[200]
     }
 
 
@@ -213,8 +227,8 @@ export const eventsData: Event[] = [
     date: "Feb 2-4, 2025",
     fee: 30000,
 
-    minTeamSize: 1,
-    maxTeamSize: 6,
+    minTeamSize: 3,
+    maxTeamSize: 4,
     rules: [
       "Teams up to 6 members.",
       "Pitch deck time: 8 minutes + Q&A.",
@@ -241,7 +255,7 @@ export const eventsData: Event[] = [
     fee: 5000,
 
     minTeamSize: 1,
-    maxTeamSize: 3,
+    maxTeamSize: 1,
     rules: ["Individual or small teams.", "Bring your laptop."],
     contact1: "+917012253058",
     contact2: "+918281634393",
@@ -280,7 +294,7 @@ export const eventsData: Event[] = [
     fee: 20000,
 
     minTeamSize: 1,
-    maxTeamSize: 2,
+    maxTeamSize: 4,
     rules: ["FAA/college flight rules apply.", "Pre-race inspection required."],
     contact1: "+919778003944",
     contact2: "+918075478328",
@@ -301,7 +315,7 @@ export const eventsData: Event[] = [
     fee: 5000,
 
     minTeamSize: 1,
-    maxTeamSize: 2,
+    maxTeamSize: 1,
     rules: ["Individual or pairs.", "Internet allowed for documentation only."],
     contact1: "+918590620874",
     contact2: "+919645373539",
@@ -364,7 +378,7 @@ export const eventsData: Event[] = [
     fee: 5000,
 
     minTeamSize: 1,
-    maxTeamSize: 4,
+    maxTeamSize: 2,
     rules: ["Presentations limited to 10 minutes.", "Use provided template for posters."],
     contact1: "+919995585869",
     contact2: "+918089251740",
@@ -458,10 +472,28 @@ export const eventsData: Event[] = [
     color1: "#1e40af",
     color2: "#3b82f6",
     poster: posterAssets["robotics-workshop"]
+  },
+  {
+    id: eventId.PRIMEVERA_WORKSHOP,
+    duration: "2 Days",
+    title: "Primavera P6 Workshop",
+    category: "Workshop",
+    description: "Comprehensive Primavera P6 workshop over 2 days.",
+    longDescription:
+      "A detailed 2-day workshop on Primavera P6, covering project scheduling, resource management, and best practices for effective project planning.",
+    date: "Feb 2-3, 2025",
+    fee: 10000,
+
+    minTeamSize: 1,
+    maxTeamSize: 1,
+    rules: ["Bring your own laptop.", "Prior basic knowledge of project management recommended."],
+    contact1: "456-789-0123",
+    contact2: "456-789-0124",
+    color1: "#7c2d12",
+    color2: "#f97316",
+    poster: posterAssets["primavera-workshop"]
   }
 ];
-
-
 
 export const items : MenuItemProps[] = [{
       link: `/events/${eventId.BUSINESS_PITCHING}`,
