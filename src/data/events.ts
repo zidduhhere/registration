@@ -629,5 +629,16 @@ export const items : MenuItemProps[] = [{
       marqueeTextColor: "#000000",
       borderColor: "#FFFFFF",
       isFirst: true
+     },
+     {
+      link: `/events/${eventId.PRIMEVERA_WORKSHOP}`,
+      text: "PRIMEVERA P6 WORKSHOP",
+      image: arrowIcon,
+      speed: 30,
+      textColor: "#FFFFFF",
+      marqueeBgColor: "#FFffff",
+      marqueeTextColor: "#000000",
+      borderColor: "#FFFFFF",
+      isFirst: true
      }
   ];
