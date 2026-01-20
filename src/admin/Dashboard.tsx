@@ -3,6 +3,7 @@ import { supabase } from '../supabase/supabase';
 import Statistics from './components/Statistics';
 import RegistrationsTable from './components/RegistrationsTable';
 import EventFilter from './components/EventFilter';
+import DebugModeIndicator from './components/DebugModeIndicator';
 
 /**
  * Admin Dashboard Component
@@ -213,6 +214,9 @@ const Dashboard = () => {
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Debug Mode Indicator */}
+        <DebugModeIndicator />
+
         {/* Event Filter */}
         <EventFilter
           events={events}

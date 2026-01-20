@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { supabaseAdmin, isDebugMode } from '../../supabase/supabase';
+import DeleteConfirmationModal from './DeleteConfirmationModal';
 
 interface Registration {
   id: number;
@@ -24,6 +25,9 @@ const RegistrationsTable = ({ registrations, onDelete }: RegistrationsTableProps
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [deletingId, setDeletingId] = useState<number | null>(null);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [registrationToDelete, setRegistrationToDelete] = useState<Registration | null>(null);
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const itemsPerPage = 20;
 
   // Filter registrations based on search term
@@ -71,25 +75,30 @@ const RegistrationsTable = ({ registrations, onDelete }: RegistrationsTableProps
     return members;
   };
 
-  const handleDelete = async (reg: Registration) => {
+  const showToast = (message: string, type: 'success' | 'error') => {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 5000);
+  };
+
+  const handleDeleteClick = (reg: Registration) => {
     if (!isDebugMode || !supabaseAdmin) {
-      alert('Delete function is only available in debug mode with service key configured.');
+      showToast('Delete function is only available in debug mode with service key configured.', 'error');
       return;
     }
+    setRegistrationToDelete(reg);
+    setDeleteModalOpen(true);
+  };
 
-    const confirmDelete = window.confirm(
-      `Are you sure you want to delete registration #${reg.id} for ${reg.leader_name}?\n\nThis will permanently delete:\n- Registration record\n- Payment screenshot\n\nThis action cannot be undone.`
-    );
+  const handleDeleteConfirm = async () => {
+    if (!registrationToDelete) return;
 
-    if (!confirmDelete) return;
-
-    setDeletingId(reg.id);
+    setDeletingId(registrationToDelete.id);
 
     try {
       // Extract screenshot file path from URL
       let screenshotPath = null;
-      if (reg.screenshot_url) {
-        const url = new URL(reg.screenshot_url);
+      if (registrationToDelete.screenshot_url) {
+        const url = new URL(registrationToDelete.screenshot_url);
         const pathMatch = url.pathname.match(/\/storage\/v1\/object\/public\/registration-screenshots\/(.+)/);
         if (pathMatch) {
           screenshotPath = pathMatch[1];
@@ -97,7 +106,7 @@ const RegistrationsTable = ({ registrations, onDelete }: RegistrationsTableProps
       }
 
       // Delete screenshot from storage if exists
-      if (screenshotPath) {
+      if (screenshotPath && supabaseAdmin) {
         const { error: storageError } = await supabaseAdmin
           .storage
           .from('registration-screenshots')
@@ -110,16 +119,20 @@ const RegistrationsTable = ({ registrations, onDelete }: RegistrationsTableProps
       }
 
       // Delete registration from database
-      const { error: dbError } = await supabaseAdmin
-        .from(reg.eventId)
-        .delete()
-        .eq('id', reg.id);
+      if (supabaseAdmin) {
+        const { error: dbError } = await supabaseAdmin
+          .from(registrationToDelete.eventId)
+          .delete()
+          .eq('id', registrationToDelete.id);
 
-      if (dbError) {
-        throw new Error(`Failed to delete registration: ${dbError.message}`);
+        if (dbError) {
+          throw new Error(`Failed to delete registration: ${dbError.message}`);
+        }
       }
 
-      alert(`Registration #${reg.id} deleted successfully!`);
+      showToast(`Registration #${registrationToDelete.id} deleted successfully!`, 'success');
+      setDeleteModalOpen(false);
+      setRegistrationToDelete(null);
       
       // Call onDelete callback to refresh data
       if (onDelete) {
@@ -127,7 +140,7 @@ const RegistrationsTable = ({ registrations, onDelete }: RegistrationsTableProps
       }
     } catch (error: any) {
       console.error('Delete error:', error);
-      alert(`Failed to delete registration: ${error.message}`);
+      showToast(`Failed to delete registration: ${error.message}`, 'error');
     } finally {
       setDeletingId(null);
     }
@@ -245,7 +258,7 @@ const RegistrationsTable = ({ registrations, onDelete }: RegistrationsTableProps
                         </button>
                         {isDebugMode && supabaseAdmin && (
                           <button
-                            onClick={() => handleDelete(reg)}
+                            onClick={() => handleDeleteClick(reg)}
                             disabled={deletingId === reg.id}
                             className="text-red-600 hover:text-red-800 font-semibold clash disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1"
                             title="Delete registration and screenshot"
@@ -370,6 +383,50 @@ const RegistrationsTable = ({ registrations, onDelete }: RegistrationsTableProps
           </button>
         </div>
       )}
+
+      {/* Toast Notifications */}
+      {toast && (
+        <div className="fixed top-4 right-4 z-50 animate-slide-in">
+          <div className={`rounded-lg shadow-lg p-4 flex items-center gap-3 ${
+            toast.type === 'success' ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'
+          }`}>
+            {toast.type === 'success' ? (
+              <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              </svg>
+            ) : (
+              <svg className="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+              </svg>
+            )}
+            <p className={`text-sm font-semibold serif ${
+              toast.type === 'success' ? 'text-green-800' : 'text-red-800'
+            }`}>{toast.message}</p>
+            <button
+              onClick={() => setToast(null)}
+              className={`ml-4 ${
+                toast.type === 'success' ? 'text-green-600 hover:text-green-800' : 'text-red-600 hover:text-red-800'
+              }`}
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      <DeleteConfirmationModal
+        isOpen={deleteModalOpen}
+        registration={registrationToDelete}
+        onConfirm={handleDeleteConfirm}
+        onCancel={() => {
+          setDeleteModalOpen(false);
+          setRegistrationToDelete(null);
+        }}
+        isDeleting={deletingId !== null}
+      />
     </div>
   );
 };
