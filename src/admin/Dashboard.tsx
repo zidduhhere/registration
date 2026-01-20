@@ -17,6 +17,7 @@ const events = [
   { id: 'figma-sdp', name: 'Student Dev UI/UX' },
   { id: 'drone-making-workshop', name: 'Drone Making Workshop' },
   { id: 'robotics-workshop', name: 'Robotics Workshop' },
+  { id: 'primevera-workshop', name: 'Primavera P6 Workshop' },
 ];
 
 const Dashboard = () => {
