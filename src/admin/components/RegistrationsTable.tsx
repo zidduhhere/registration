@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { supabaseAdmin, isDebugMode } from '../../supabase/supabase';
 
 interface Registration {
   id: number;
@@ -15,12 +16,14 @@ interface Registration {
 
 interface RegistrationsTableProps {
   registrations: Registration[];
+  onDelete?: () => void;
 }
 
-const RegistrationsTable = ({ registrations }: RegistrationsTableProps) => {
+const RegistrationsTable = ({ registrations, onDelete }: RegistrationsTableProps) => {
   const [expandedRow, setExpandedRow] = useState<number | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [deletingId, setDeletingId] = useState<number | null>(null);
   const itemsPerPage = 20;
 
   // Filter registrations based on search term
@@ -66,6 +69,68 @@ const RegistrationsTable = ({ registrations }: RegistrationsTableProps) => {
       }
     }
     return members;
+  };
+
+  const handleDelete = async (reg: Registration) => {
+    if (!isDebugMode || !supabaseAdmin) {
+      alert('Delete function is only available in debug mode with service key configured.');
+      return;
+    }
+
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete registration #${reg.id} for ${reg.leader_name}?\n\nThis will permanently delete:\n- Registration record\n- Payment screenshot\n\nThis action cannot be undone.`
+    );
+
+    if (!confirmDelete) return;
+
+    setDeletingId(reg.id);
+
+    try {
+      // Extract screenshot file path from URL
+      let screenshotPath = null;
+      if (reg.screenshot_url) {
+        const url = new URL(reg.screenshot_url);
+        const pathMatch = url.pathname.match(/\/storage\/v1\/object\/public\/registration-screenshots\/(.+)/);
+        if (pathMatch) {
+          screenshotPath = pathMatch[1];
+        }
+      }
+
+      // Delete screenshot from storage if exists
+      if (screenshotPath) {
+        const { error: storageError } = await supabaseAdmin
+          .storage
+          .from('registration-screenshots')
+          .remove([screenshotPath]);
+
+        if (storageError) {
+          console.error('Error deleting screenshot:', storageError);
+          // Continue with registration deletion even if screenshot deletion fails
+        }
+      }
+
+      // Delete registration from database
+      const { error: dbError } = await supabaseAdmin
+        .from(reg.eventId)
+        .delete()
+        .eq('id', reg.id);
+
+      if (dbError) {
+        throw new Error(`Failed to delete registration: ${dbError.message}`);
+      }
+
+      alert(`Registration #${reg.id} deleted successfully!`);
+      
+      // Call onDelete callback to refresh data
+      if (onDelete) {
+        onDelete();
+      }
+    } catch (error: any) {
+      console.error('Delete error:', error);
+      alert(`Failed to delete registration: ${error.message}`);
+    } finally {
+      setDeletingId(null);
+    }
   };
 
   if (registrations.length === 0) {
@@ -138,6 +203,13 @@ const RegistrationsTable = ({ registrations }: RegistrationsTableProps) => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
+            {isDebugMode && (
+              <tr className="bg-yellow-50 border-yellow-200">
+                <td colSpan={7} className="px-6 py-2 text-center text-sm font-semibold text-yellow-800 clash">
+                  🔧 DEBUG MODE - Delete functionality enabled
+                </td>
+              </tr>
+            )}
             {currentRegistrations.map((reg) => {
               const uniqueKey = `${reg.eventId}-${reg.id}`;
               return (
@@ -164,12 +236,39 @@ const RegistrationsTable = ({ registrations }: RegistrationsTableProps) => {
                       {formatDate(reg.created_at)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
-                      <button
-                        onClick={() => toggleRow(reg.id)}
-                        className="text-blue-600 hover:text-blue-800 font-semibold clash"
-                      >
-                        {expandedRow === reg.id ? 'Hide Details' : 'View Details'}
-                      </button>
+                      <div className="flex items-center gap-3">
+                        <button
+                          onClick={() => toggleRow(reg.id)}
+                          className="text-blue-600 hover:text-blue-800 font-semibold clash"
+                        >
+                          {expandedRow === reg.id ? 'Hide Details' : 'View Details'}
+                        </button>
+                        {isDebugMode && supabaseAdmin && (
+                          <button
+                            onClick={() => handleDelete(reg)}
+                            disabled={deletingId === reg.id}
+                            className="text-red-600 hover:text-red-800 font-semibold clash disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1"
+                            title="Delete registration and screenshot"
+                          >
+                            {deletingId === reg.id ? (
+                              <>
+                                <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                Deleting...
+                              </>
+                            ) : (
+                              <>
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                                Delete
+                              </>
+                            )}
+                          </button>
+                        )}
+                      </div>
                     </td>
                   </tr>
                   

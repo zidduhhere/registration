@@ -6,19 +6,39 @@ const Login = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  // Simple password protection - consider using proper authentication in production
-  const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || 'admin123';
+  // SHA256 hashed password with passphrase
+  const PASSPHRASE = 'This is pravega 2026';
+  const HASHED_PASSWORD = '08df8f61576822557a5ba8f3ad26f7ba2bb379b47e2c9f0d73ae44e666db71c9';
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // SHA256 hash function
+  const sha256 = async (text: string): Promise<string> => {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(text);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return hashHex;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (password === ADMIN_PASSWORD) {
-      // Store auth token in sessionStorage (not localStorage for security)
-      sessionStorage.setItem('admin_auth', 'true');
-      navigate('/admin/dashboard');
-    } else {
-      setError('Invalid password');
-      setPassword('');
+    try {
+      // Combine password with passphrase and hash
+      const combined = password + PASSPHRASE;
+      const hashedInput = await sha256(combined);
+      
+      if (hashedInput === HASHED_PASSWORD) {
+        // Store auth token in sessionStorage (not localStorage for security)
+        sessionStorage.setItem('admin_auth', 'true');
+        navigate('/admin/dashboard');
+      } else {
+        setError('Invalid password');
+        setPassword('');
+      }
+    } catch (err) {
+      setError('Authentication error');
+      console.error('Hashing error:', err);
     }
   };
 

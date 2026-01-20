@@ -4,6 +4,21 @@ import Statistics from './components/Statistics';
 import RegistrationsTable from './components/RegistrationsTable';
 import EventFilter from './components/EventFilter';
 
+/**
+ * Admin Dashboard Component
+ * 
+ * Features:
+ * - View all registrations across events
+ * - Filter by specific event
+ * - Export data to CSV
+ * - Delete registrations (Debug Mode Only)
+ * 
+ * Delete Functionality:
+ * Only available when VITE_DEBUG_MODE=true and VITE_SUPABASE_SERVICE_KEY is configured.
+ * Allows permanent deletion of registration records and associated screenshots.
+ * NEVER enable in production!
+ */
+
 const events = [
   { id: 'business-pitching', name: 'Business Pitching' },
   { id: 'ai-sprint-workshop', name: 'AI Sprint Workshop' },
@@ -223,7 +238,7 @@ const Dashboard = () => {
             <p className="text-gray-600 clash">Loading registrations...</p>
           </div>
         ) : (
-          <RegistrationsTable registrations={registrations} />
+          <RegistrationsTable registrations={registrations} onDelete={fetchData} />
         )}
       </div>
     </div>
