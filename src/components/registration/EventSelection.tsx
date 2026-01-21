@@ -1,6 +1,7 @@
 import { ArrowDownCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { eventGuidelines, type EventGuidelines } from "../../data/events";
+import { useEventStatus } from "../../hooks/useEventStatus";
 
 interface EventSelectionProps {
   eventSelected: EventGuidelines | null;
@@ -8,6 +9,8 @@ interface EventSelectionProps {
 }
 
 const EventSelection = ({ eventSelected, setEventSelected }: EventSelectionProps) => {
+  const { isEventOpen } = useEventStatus();
+
   return (
     <>
       <form className="h-fit py-4 mx-2" id="eventSelection">
@@ -32,14 +35,26 @@ const EventSelection = ({ eventSelected, setEventSelected }: EventSelectionProps
             <option value="" disabled>
               Select an event
             </option>
-            {eventGuidelines.map((event, index) => (
-              <option key={index} value={event.eventName}>
-                {event.eventName}
-              </option>
-            ))}
+            {eventGuidelines.map((event, index) => {
+              const isOpen = isEventOpen(event.eventId);
+              return (
+                <option 
+                  key={index} 
+                  value={event.eventName}
+                  disabled={!isOpen}
+                >
+                  {event.eventName} {!isOpen ? '(Registration Full)' : ''}
+                </option>
+              );
+            })}
           </select>
           {!eventSelected && (
             <p className="text-red-500 text-xs mt-1">Please select an event</p>
+          )}
+          {eventSelected && !isEventOpen(eventSelected.eventId) && (
+            <p className="text-red-500 text-xs mt-1 font-semibold">
+              ⚠️ Registration for this event is currently closed (Full)
+            </p>
           )}
         </div>
       </form>

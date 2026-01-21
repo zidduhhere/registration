@@ -3,6 +3,7 @@ import { eventGuidelines, eventsData } from '../data/events';
 import GradientText from '../components/GradientText';
 import { useState, useEffect } from 'react';
 import Watermark from '../components/Watermark';
+import { useEventStatus } from '../hooks/useEventStatus';
 
 const EventDetails = () => {
 
@@ -11,6 +12,7 @@ const EventDetails = () => {
     const [copiedFaculty, setCopiedFaculty] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
     const navigate = useNavigate();
+    const { isEventOpen } = useEventStatus();
 
 
     const copyToClipboard = async (text: string, type: 'student' | 'faculty') => {
@@ -133,12 +135,19 @@ const EventDetails = () => {
             )}
 
             {/* Register Button */}
-            <Link 
-              to="/register" 
-              className='block w-full bg-black p-4 text-center text-white clash font-semibold text-xl rounded-xl shadow-lg hover:bg-gray-800 transition-colors'
-            >
-              Register Now
-            </Link>
+            {id && !isEventOpen(id) ? (
+              <div className='w-full bg-red-100 border-2 border-red-500 p-4 text-center rounded-xl mb-4'>
+                <p className='clash font-bold text-red-800 text-lg mb-2'>Registration Closed</p>
+                <p className='serif text-red-700 text-sm'>This event is currently full. Registration is no longer available.</p>
+              </div>
+            ) : (
+              <Link 
+                to="/register" 
+                className='block w-full bg-black p-4 text-center text-white clash font-semibold text-xl rounded-xl shadow-lg hover:bg-gray-800 transition-colors'
+              >
+                Register Now
+              </Link>
+            )}
           </div>
         </div>
       );
@@ -148,6 +157,22 @@ const EventDetails = () => {
     return (
       <div>
         <div onClick={() => navigate(-1)} className='px-4 absolute top-8 left-8 clash font-semibold text-white bg-black p-2 cursor-pointer'>Go Back</div>
+        
+        {/* Registration Status Banner */}
+        {id && !isEventOpen(id) && (
+          <div className='fixed top-20 left-1/2 transform -translate-x-1/2 z-50 bg-red-100 border-2 border-red-500 rounded-lg shadow-lg p-4 max-w-md'>
+            <div className='flex items-center gap-3'>
+              <svg className='w-6 h-6 text-red-600 shrink-0' fill='currentColor' viewBox='0 0 20 20'>
+                <path fillRule='evenodd' d='M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z' clipRule='evenodd' />
+              </svg>
+              <div>
+                <p className='clash font-bold text-red-800'>Registration Closed</p>
+                <p className='serif text-sm text-red-700'>This event is currently full</p>
+              </div>
+            </div>
+          </div>
+        )}
+        
         <div className='flex flex-col justify-center w-full h-screen'>
           <div className='details md:grid md:grid-cols-12 w-full px-[5vw]'>
             <div className='md:col-span-7 left gap-2 flex md:flex-col flex-col-reverse align-start text-start'>
@@ -188,9 +213,15 @@ const EventDetails = () => {
             </div>
           </div>
           <div className='w-full flex justify-center items-center mb-10'>
-            <Link to="/register" className='bg-black p-2 px-8 min-w-120 rounded-full text-center text-white clash font-semibold text-2xl hover:bg-gray-800'>
-              Register Now
-            </Link>
+            {id && !isEventOpen(id) ? (
+              <div className='bg-red-100 border-2 border-red-500 p-4 px-8 rounded-full text-center'>
+                <p className='clash font-bold text-red-800 text-xl'>Registration Full - Event Closed</p>
+              </div>
+            ) : (
+              <Link to="/register" className='bg-black p-2 px-8 min-w-120 rounded-full text-center text-white clash font-semibold text-2xl hover:bg-gray-800'>
+                Register Now
+              </Link>
+            )}
           </div>
         </div>
         <Watermark />

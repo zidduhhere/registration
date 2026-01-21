@@ -10,6 +10,7 @@ import EventSelection from "../components/registration/EventSelection";
 import TeamMembers from "../components/registration/TeamMembers";
 import PaymentStep from "../components/registration/PaymentStep";
 import ScreenshotUpload from "../components/registration/ScreenshotUpload";
+import { useEventStatus } from "../hooks/useEventStatus";
 
 const Register = () => {
   const {
@@ -34,6 +35,7 @@ const Register = () => {
     loading,
     error: registrationError,
   } = useRegistration();
+  const { isEventOpen } = useEventStatus();
 
   // Load saved data from sessionStorage on mount
   useEffect(() => {
@@ -68,6 +70,12 @@ const Register = () => {
   const onSubmit = async (data: any) => {
     if (!eventSelected) {
       alert("Please select an event");
+      return;
+    }
+
+    // Check if event registration is open
+    if (!isEventOpen(eventSelected.eventId)) {
+      alert("Registration for this event is currently closed. The event is full.");
       return;
     }
 

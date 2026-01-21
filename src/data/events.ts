@@ -39,6 +39,7 @@ export interface Event {
   color1: string;
   color2: string;
   poster: string;
+  registrationOpen: boolean;
 }
 
 export type MemberDetails = {
@@ -54,8 +55,8 @@ export type EventGuidelines = {
   minimumTeamSize: number;
   maximumTeamSize: number;
   rules: string[];
-  price: string
-  
+  price: string;
+  registrationOpen: boolean;
 }
 
 
@@ -73,7 +74,8 @@ export const eventGuidelines: EventGuidelines[] = [
       "Pitch deck time: 8 minutes + Q&A.",
       "Slide decks submitted before final presentation.",
     ],
-    price: paymentAssets[1500]
+    price: paymentAssets[1500],
+    registrationOpen: true
   },
 
   {
@@ -85,7 +87,8 @@ export const eventGuidelines: EventGuidelines[] = [
       "Individual teams.",
       "Bring your laptop."
     ],
-    price: paymentAssets[200]
+    price: paymentAssets[200],
+    registrationOpen: true
   },
     {
       eventId: eventId.RC_CAR,
@@ -96,7 +99,8 @@ export const eventGuidelines: EventGuidelines[] = [
         "Safety checks mandatory.",
         "No combustible fuel-powered cars.",
       ],
-      price: paymentAssets[750]
+      price: paymentAssets[750],
+      registrationOpen: true
     },
     {
       eventId: eventId.DRONE_RACE,
@@ -107,7 +111,8 @@ export const eventGuidelines: EventGuidelines[] = [
         "FAA/college flight rules apply.",
         "Pre-race inspection required."
       ],
-      price: paymentAssets[750]
+      price: paymentAssets[750],
+      registrationOpen: true
     },
     {
       eventId: eventId.CODE_DEBUGGING,
@@ -118,7 +123,8 @@ export const eventGuidelines: EventGuidelines[] = [
         "Individual or pairs.",
         "Internet allowed for documentation only."
       ],
-      price: paymentAssets[200]
+      price: paymentAssets[200],
+      registrationOpen: true
     },
     {
       eventId: eventId.CIRCUIT_DEBUGGING,
@@ -129,7 +135,8 @@ export const eventGuidelines: EventGuidelines[] = [
         "Safety goggles required.",
         "No external powered test rigs allowed."
       ],
-      price: paymentAssets[200]
+      price: paymentAssets[200],
+      registrationOpen: true
     },
     {
       eventId: eventId.WEB_DEVELOPMENT,
@@ -140,7 +147,8 @@ export const eventGuidelines: EventGuidelines[] = [
         "Teams of up to 4.",
         "Use of public libraries allowed."
       ],
-      price: paymentAssets[200]
+      price: paymentAssets[200],
+      registrationOpen: true
     },
     {
       eventId: eventId.DESIGN_FOR_THE_SKY,
@@ -151,7 +159,8 @@ export const eventGuidelines: EventGuidelines[] = [
         "Presentations limited to 10 minutes.",
         "Use provided template for posters."
       ],
-      price: paymentAssets[200]
+      price: paymentAssets[200],
+      registrationOpen: true
     },
     {
       eventId: eventId.DESIGN_FOR_CIVIL,
@@ -162,7 +171,8 @@ export const eventGuidelines: EventGuidelines[] = [
         "Teams up to 5.",
         "Physical model materials provided on request."
       ],
-      price: paymentAssets[200]
+      price: paymentAssets[200],
+      registrationOpen: true
     },
     {
       eventId: eventId.STUDENT_DEV_UIUX,
@@ -172,7 +182,8 @@ export const eventGuidelines: EventGuidelines[] = [
       rules: [
         "Registration encouraged."
       ],
-      price: paymentAssets[200]
+      price: paymentAssets[200],
+      registrationOpen: true
     },
     {
       eventId: eventId.DRONE_MAKING_WORKSHOP,
@@ -183,7 +194,8 @@ export const eventGuidelines: EventGuidelines[] = [
         "Bring your own laptop.",
         "Prior basic electronics knowledge recommended."
       ],
-      price: paymentAssets[200]
+      price: paymentAssets[200],
+      registrationOpen: true
     },
     {
       eventId: eventId.ROBOTICS_WORKSHOP,
@@ -194,7 +206,8 @@ export const eventGuidelines: EventGuidelines[] = [
         "Bring your own laptop.",
         "Prior basic electronics knowledge recommended."
       ],
-      price: paymentAssets[200]
+      price: paymentAssets[200],
+      registrationOpen: false
     },
 
     {
@@ -206,7 +219,8 @@ export const eventGuidelines: EventGuidelines[] = [
         "Bring your own laptop.",
         "Prior basic knowledge of project management recommended."
       ],
-      price: paymentAssets[200]
+      price: paymentAssets[200],
+      registrationOpen: true
     }
 
 
@@ -240,7 +254,8 @@ export const eventsData: Event[] = [
 
     color1: "#FF1500",
     color2: "#890707",
-    poster: posterAssets["business-pitching"]
+    poster: posterAssets["business-pitching"],
+    registrationOpen: true
   },
   {
     id: "ai-sprint-workshop",
@@ -261,7 +276,8 @@ export const eventsData: Event[] = [
     contact2: "+918281634393",
     color1: "#7c2d12",
     color2: "#fb923c",
-    poster: posterAssets["ai-sprint-workshop"]
+    poster: posterAssets["ai-sprint-workshop"],
+    registrationOpen: true
   },
   {
     id: eventId.RC_CAR,
@@ -279,7 +295,8 @@ export const eventsData: Event[] = [
     contact2: "+918891748311",
     color1: "#991b1b",
     color2: "#f87171",
-    poster: posterAssets['rc-car']
+    poster: posterAssets['rc-car'],
+    registrationOpen: true
   },
   {
     id: eventId.DRONE_RACE,
@@ -300,7 +317,8 @@ export const eventsData: Event[] = [
     contact2: "+918075478328",
     color1: "#0c4a6e",
     color2: "#38bdf8",
-    poster: posterAssets["drone-race"]
+    poster: posterAssets["drone-race"],
+    registrationOpen: true
   },
   {
     id: eventId.CODE_DEBUGGING,
@@ -321,7 +339,8 @@ export const eventsData: Event[] = [
     contact2: "+919645373539",
     color1: "#065f46",
     color2: "#34d399",
-    poster: posterAssets["code-debugging"]
+    poster: posterAssets["code-debugging"],
+    registrationOpen: true
   },
   {
     id: eventId.CIRCUIT_DEBUGGING,
@@ -342,7 +361,8 @@ export const eventsData: Event[] = [
     contact2: "+917356867385",
     color1: "#831843",
     color2: "#f472b6",
-    poster: posterAssets["circuit-debugging"]
+    poster: posterAssets["circuit-debugging"],
+    registrationOpen: true
   },
   {
     id: eventId.WEB_DEVELOPMENT,
@@ -363,7 +383,8 @@ export const eventsData: Event[] = [
     contact2: "+919092080155",
     color1: "#6b21a8",
     color2: "#c084fc",
-    poster: posterAssets["web-development"]
+    poster: posterAssets["web-development"],
+    registrationOpen: true
   },
   {
     id: eventId.DESIGN_FOR_THE_SKY,
@@ -384,7 +405,8 @@ export const eventsData: Event[] = [
     contact2: "+918089251740",
     color1: "#be123c",
     color2: "#fb7185",
-    poster: posterAssets["design-for-the-sky"]
+    poster: posterAssets["design-for-the-sky"],
+    registrationOpen: true
   },
   {
     id: eventId.DESIGN_FOR_CIVIL,
@@ -405,7 +427,8 @@ export const eventsData: Event[] = [
     contact2: "+9496805691",
     color1: "#713f12",
     color2: "#fbbf24",
-    poster: posterAssets["design-for-civil"]
+    poster: posterAssets["design-for-civil"],
+    registrationOpen: true
   },
   
   {
@@ -427,7 +450,8 @@ export const eventsData: Event[] = [
     contact2: "+919497775753",
     color1: "#4c1d95",
     color2: "#a78bfa",
-    poster: posterAssets['figma-sdp']
+    poster: posterAssets['figma-sdp'],
+    registrationOpen: true
   },
 
   {
@@ -449,7 +473,8 @@ export const eventsData: Event[] = [
     contact2: "234-567-8902",
     color1: "#064e3b",
     color2: "#10b981",
-    poster: posterAssets["drone-making-workshop"]
+    poster: posterAssets["drone-making-workshop"],
+    registrationOpen: true
   },
 
   {
@@ -471,7 +496,8 @@ export const eventsData: Event[] = [
     contact2: "345-678-9013",
     color1: "#1e40af",
     color2: "#3b82f6",
-    poster: posterAssets["robotics-workshop"]
+    poster: posterAssets["robotics-workshop"],
+    registrationOpen: false
   },
   {
     id: eventId.PRIMEVERA_WORKSHOP,
@@ -491,7 +517,8 @@ export const eventsData: Event[] = [
     contact2: "456-789-0124",
     color1: "#7c2d12",
     color2: "#f97316",
-    poster: posterAssets["primavera-workshop"]
+    poster: posterAssets["primavera-workshop"],
+    registrationOpen: true
   }
 ];
 
