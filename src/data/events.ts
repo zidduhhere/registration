@@ -220,7 +220,7 @@ export const eventGuidelines: EventGuidelines[] = [
         "Prior basic knowledge of project management recommended."
       ],
       price: paymentAssets[200],
-      registrationOpen: true
+      registrationOpen: false
     }
 
 
@@ -518,7 +518,7 @@ export const eventsData: Event[] = [
     color1: "#7c2d12",
     color2: "#f97316",
     poster: posterAssets["primavera-workshop"],
-    registrationOpen: true
+    registrationOpen: false
   }
 ];
 
