@@ -88,7 +88,7 @@ export const eventGuidelines: EventGuidelines[] = [
       "Bring your laptop."
     ],
     price: paymentAssets[200],
-    registrationOpen: true
+    registrationOpen: false
   },
     {
       eventId: eventId.RC_CAR,
@@ -277,7 +277,7 @@ export const eventsData: Event[] = [
     color1: "#7c2d12",
     color2: "#fb923c",
     poster: posterAssets["ai-sprint-workshop"],
-    registrationOpen: true
+    registrationOpen: false
   },
   {
     id: eventId.RC_CAR,
