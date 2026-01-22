@@ -112,7 +112,7 @@ export const eventGuidelines: EventGuidelines[] = [
         "Pre-race inspection required."
       ],
       price: paymentAssets[750],
-      registrationOpen: true
+      registrationOpen: false
     },
     {
       eventId: eventId.CODE_DEBUGGING,
@@ -474,7 +474,7 @@ export const eventsData: Event[] = [
     color1: "#064e3b",
     color2: "#10b981",
     poster: posterAssets["drone-making-workshop"],
-    registrationOpen: true
+    registrationOpen: false
   },
 
   {
