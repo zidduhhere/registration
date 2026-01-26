@@ -5,7 +5,14 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'saffron': '#FF9933',
+        'india-white': '#FFFFFF',
+        'india-green': '#138808',
+        'ashoka-blue': '#000080',
+      },
+    },
   },
   plugins: [],
 }
