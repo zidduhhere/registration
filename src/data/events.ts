@@ -183,7 +183,7 @@ export const eventGuidelines: EventGuidelines[] = [
         "Registration encouraged."
       ],
       price: paymentAssets[200],
-      registrationOpen: true
+      registrationOpen: false
     },
     {
       eventId: eventId.DRONE_MAKING_WORKSHOP,
@@ -195,7 +195,7 @@ export const eventGuidelines: EventGuidelines[] = [
         "Prior basic electronics knowledge recommended."
       ],
       price: paymentAssets[200],
-      registrationOpen: true
+      registrationOpen: false
     },
     {
       eventId: eventId.ROBOTICS_WORKSHOP,
@@ -296,7 +296,7 @@ export const eventsData: Event[] = [
     color1: "#991b1b",
     color2: "#f87171",
     poster: posterAssets['rc-car'],
-    registrationOpen: true
+    registrationOpen: false
   },
   {
     id: eventId.DRONE_RACE,
@@ -451,7 +451,7 @@ export const eventsData: Event[] = [
     color1: "#4c1d95",
     color2: "#a78bfa",
     poster: posterAssets['figma-sdp'],
-    registrationOpen: true
+    registrationOpen: false
   },
 
   {
